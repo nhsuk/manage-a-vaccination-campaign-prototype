@@ -1,16 +1,53 @@
-var moment = require('moment-timezone');
-module.exports = function (env) { /* eslint-disable-line no-unused-vars */
-  /**
-   * Instantiate object used to store the methods registered as a
-   * 'filter' (of the same name) within nunjucks. You can override
-   * gov.uk core filters by creating filter methods of the same name.
-   * @type {Object}
-   */
-  const filters = {};
+import { DateTime } from 'luxon'
+const { DateTime } = require("luxon");
 
-  filters.formatDate = string => {
-    return moment(string).tz('GMT').format('YYYY MMMM DD, dddd, HH:MM:SS z');
+export default (_env) => {
+  const filters = {}
+
+  /**
+   * Add your methods to the filters object below this comment block.
+   *
+   * @example
+   * filters.sayHello = function (name) {
+   *   return `Hello, ${name}!`
+   * }
+   *
+   * Which in your templates would be used as:
+   *
+   * {{ "World" | sayHello }} => Hello, World!
+   *
+   * @see {@link https://mozilla.github.io/nunjucks/api#custom-filters}
+   */
+
+  /**
+   * Get age from date
+   * @param {object<Date>} date
+   * @returns {number} Age in years
+   */
+
+  
+
+  /**
+   * Format date with day of the week
+   * @param {string} string - ISO date, for example 07-12-2021
+   * @returns {string} Formatted date, for example Sunday 7 December 2021
+   */
+  filters.dateWithDayOfWeek = string => {
+    return DateTime.fromISO(string).toFormat('EEEE d MMMM yyyy')
   }
 
-  return filters;
-};
+  /**
+   * Format date
+   * @param {string} string - ISO 8601 date
+   * @param {string} tokens - Formatting token
+   * @returns {string} Formatted date
+   */
+  filters.formatDate = (string, tokens) => {
+    const date = DateTime.fromISO(string)
+
+    return date.toFormat(tokens)
+  }
+
+
+  return filters
+}
