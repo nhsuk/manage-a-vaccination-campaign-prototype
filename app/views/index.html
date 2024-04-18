@@ -1,73 +1,99 @@
-{% set pagetitle ="Home - Select and Invite" %}
+<!-- Use this page as the index for your project -->
 
+<!-- ADDING CUSTOM CSS - Add your custom CSS or Sass in /app/assets/sass/main.scss -->
+
+<!-- Extends the layout from /views/layout.html -->
 {% extends 'layout.html' %}
+
+
+
 {% block header %}
-{% if data['name']|length >0 %}
-{% include 'foundations/header-signed-in-campaign.html' %}
-{% else %}
-{% include 'foundations/header-signed-in.html' %}
-{% endif %}
+{{ header({
+  "service": {
+    "name": "Vaccine Select and Invite Manager"
+  },
+  "showNav": "false",
+  "showSearch": "false",
+  "searchAction": " "
+  })
+}}
 {% endblock %}
 
-{% set mainClasses = "nhsuk-main-wrapper--s" %}
 
 {% block pageTitle %}
-  {{ pagetitle }}
+    {{serviceName}}
 {% endblock %}
 
+{% block beforeContent %}
+{% endblock %}
+
+{% block outerContent %}
+{% endblock %}
+{% block content %}
+
+{% set latestVersion = 'v001' %}
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+      <span class="nhsuk-caption-l nhsuk-caption--top">Version {{latestVersion}}</span>
 
 
-  <div class="nhsuk-width-container-fluid">
 
+      <h1 class="nhsuk-heading-xl">Prototype framework</h1>
 
-    {% block content %}
-  <main class="nhsuk-main-wrapper" id="maincontent" role="main">
-      <div class="nhsuk-grid-row">
+      <h2 class="nhsuk-heading-l">Pages</h2>
 
+      <ul class="nhsuk-list--bullet">
+          <li><a href="home">Home</a></li>
+          <li><a href="dates">Dates</a></li>
+          <li><a href="my-campaign-tasks">My campaign tasks</a></li>
+          <li><a href="name-dates">Name-dates</a></li>
+          <li><a href="select-cohorts">Select cohorts</a></li>
+          <li><a href="name">Name</a></li>
+          <li><a href="sign-in">Sign-in</a></li>
+          <li><a href="summary-cohorts">Summary cohorts</a></li>
+          <li><a href="summary">Summary</a></li>
+          <li><a href="task-list">Task list</a></li>
+          <li><a href="task-1">Task 1</a></li>
+      </ul>
 
+      {% if data|length == 0 %}
 
-        <div class="nhsuk-grid-column-full">
+      {% from 'warning-callout/macro.njk' import warningCallout %}
 
-        <h1>Welcome back {{ data['email-address'] }}</h1>
-
-
-        {% from 'card/macro.njk' import card %}
-        {% if data['name']|length >0 %}
-        <ul class="nhsuk-grid-row nhsuk-card-group">
-
-        <li class="nhsuk-grid-column-one-half nhsuk-card-group__item">
-          {{ card({
-            "href": "task-list",
-            "primary": "true",
-            "clickable": "true",
-            "heading": data['name']|default("Covid-19 Spring 2024 Booster"),
-            "headingClasses": "nhsuk-heading-m",
-            "description": "Continue setting up your campaign."
-          }) }}
-        </li>
-</ul>
-    {% endif %}
-
-  <ul class="nhsuk-grid-row nhsuk-card-group">
-    <li class="nhsuk-grid-column-one-quarter nhsuk-card-group__item">
-      {{ card({
-        "href": "name",
-        "clickable": "true",
-        "headingLevel": 2,
-        "heading": "Create a new campaign",
-        "headingClasses": "nhsuk-heading-xs"
+      {{ warningCallout({
+        "heading": "Prototype session data",
+        "HTML": "<p>There is an absence of any session data stored. Sorry.</p>"
       }) }}
-    </li>
 
-  </ul>
+      {% else %}
+      {% for key, item in data %}
+        <dl class="nhsuk-summary-list">
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">
+             {{ key }}
+            </dt>
+            <dd class="nhsuk-summary-list__value">
 
 
-    </div>
-  </main>
+              <ul class="nhsuk-list">
+                  <li>{{item}}</li>
+              </ul>
+
+
+            </dd>
+
+          </div>
+
+        </dl>
+        {% endfor %}
+      {% endif %}
+
 </div>
 
+
+
+
+
+
+
 {% endblock %}
-
-{% from 'card/macro.njk' import card %}
-
-<ul class="nhsuk-grid-row nhsuk-card-group">
