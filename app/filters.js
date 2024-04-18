@@ -1,3 +1,4 @@
+var moment = require('moment-timezone');
 module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   /**
    * Instantiate object used to store the methods registered as a
@@ -6,6 +7,10 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
    * @type {Object}
    */
   const filters = {};
+
+  filters.formatDate = string => {
+    return moment(string).tz('GMT').format('YYYY MMMM DD, dddd, HH:MM:SS z');
+  }
 
   return filters;
 };

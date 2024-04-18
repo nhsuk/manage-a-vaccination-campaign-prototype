@@ -46,6 +46,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.29.1",
     "jest": "^29.7.0",
+    "moment-timezone": "^0.5.45",
     "nunjucks-date-filter": "^0.1.1"
   },
   "engines": {
