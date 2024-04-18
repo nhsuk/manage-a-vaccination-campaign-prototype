@@ -1,0 +1,17 @@
+{% from 'header/macro.njk' import header %}
+
+{{ header({
+  "service": {
+    "name": "Vaccine Select and Invite Manager"
+  },
+  "showNav": "false",
+  "showSearch": "false",
+  "primaryLinks": [
+    {
+      'url' : 'sign-in',
+      'label' :
+      data['email-address'] | default("user@nhs.net")+' - Sign out'
+    }
+  ]
+  })
+}}

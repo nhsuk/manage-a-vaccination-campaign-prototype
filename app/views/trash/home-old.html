@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+    {{serviceName}}
+{% endblock %}
+
+<div class="nhsuk-width-container-fluid">
+  <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+    <!-- Grid row wrapper here -->
+
+
+
+
+{% block header %}
+{% include 'foundations/header-signed-in.html' %}
+{% endblock %}
+{% block content %}
+
+
+
+
+
+
+
+<div class="nhsuk-grid-row">
+  <!-- <div style="border:1px solid black" class="nhsuk-grid-column-full">
+    <p>nhsuk-grid-column-full</p> -->
+
+    <div style="border:1px solid black" class="nhsuk-grid-column-one-third">
+      <p>nhsuk-grid-column-one-third</p>
+    </div>
+    <div style="border:1px solid black" class="nhsuk-grid-column-two-thirds">
+      <p>nhsuk-grid-column-two-thirds</p>
+    </div>
+
+  <!-- </div> -->
+</div>
+
+
+<p class="nhsuk-body-s nhsuk-u-secondary-text-color nhsuk-u-margin-top-7 nhsuk-u-margin-bottom-0">
+        Page last reviewed: 15 March 2021<br>
+        Next review due: 15 March 2024
+      </p>
+
+  </main>
+</div>   <!-- fluid container wrapper here -->
+
+{% endblock %}

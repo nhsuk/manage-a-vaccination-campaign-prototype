@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block pageTitle %}
+    {{serviceName}}
+{% endblock %}
+
+
+
+
+
+
+  <div class="nhsuk-width-container-fluid">
+
+    {% block header %}
+    {% include 'foundations/header-signed-in.html' %}
+    {% endblock %}
+    {% block content %}
+  <main class="nhsuk-main-wrapper" id="maincontent" role="main">
+      <div class="nhsuk-grid-row">
+
+
+
+        <div class="nhsuk-grid-column-full">
+
+<div style="text-align:right">
+  <span class="nhsuk-caption-s"><a href="sign-in">Sign out</a></span>
+</div>
+        <h1>Welcome back {{ data['email-address'] | default('user@nhs.net') }}</h1>
+
+
+        {% from 'card/macro.njk' import card %}
+
+  <ul class="nhsuk-grid-row nhsuk-card-group">
+    <li class="nhsuk-grid-column-one-quarter nhsuk-card-group__item">
+      {{ card({
+        "href": "question",
+        "clickable": "true",
+        "headingLevel": 2,
+        "heading": "Create a new campaign",
+        "headingClasses": "nhsuk-heading-xs"
+      }) }}
+    </li>
+    <li class="nhsuk-grid-column-one-quarter nhsuk-card-group__item">
+      {{ card({
+        "href": "#",
+        "clickable": "true",
+        "headingLevel": 2,
+        "heading": "Do something else",
+        "headingClasses": "nhsuk-heading-xs"
+      }) }}
+    </li>
+  </ul>
+
+
+    </div>
+  </main>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
