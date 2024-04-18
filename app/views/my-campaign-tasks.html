@@ -61,7 +61,7 @@
               <span class="nhsuk-table-responsive__heading">Age </span><a href="task-list?progress=true">{{ data['name']|default("Covid-19 Spring 2024 Booster")}}</a>
             </td>
             <td role="cell" class="nhsuk-table__cell">
-              <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']|when|default("Wed 09 April 16:36pm") }}
+              <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']default("Wed 09 April 16:36pm") }}
             </td>
             <td role="cell" class="nhsuk-table__cell">
               <span class="nhsuk-table-responsive__heading">Status? </span>
