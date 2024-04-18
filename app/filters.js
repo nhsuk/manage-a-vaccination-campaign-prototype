@@ -26,13 +26,7 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
     return dateFilter(string, 'ddd,Do MMMM hh:mm')
   }
 
-//
-//
-// var dateFilter = require('nunjucks-date-filter');
-//
-// filters.date = string => {
-//   return string.dateFilter.setDefaultFormat('YYYY');
-// }
+
 
 
   return filters;
