@@ -10,7 +10,11 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   const filters = {};
 
   var moment = require('moment'); // require
-  moment().format();
-  
+  // moment().format();
+
+  filters.formatDate = string => {
+    return moment(string).format("ddd DD MMM YYYY");
+  }
+
   return filters;
 };

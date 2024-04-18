@@ -110,7 +110,7 @@
 
       <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span>
 <h1 class="nhsuk-heading-xl">{{ data['name']|default("Covid-19 Spring 2024 Booster") }}
-      <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|default("29 April") }} - {{ data['toDate']|default("12 May")}}</span>
+      <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
 
 </h1>
 
