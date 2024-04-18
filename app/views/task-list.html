@@ -1,0 +1,227 @@
+{% set pagetitle ="Task list - create a new campaign - Select and Invite" %}
+
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.lines {
+  padding:5px;
+  border-top:0.5px solid lightgrey;
+}
+
+  .linesLast {
+    padding:5px;
+    border-top:0.5px solid lightgrey;
+    border-bottom:0.5px solid lightgrey;
+  }
+
+.tagPos {
+  float:right;
+  right:0;
+}
+
+<style>
+
+.lines {
+  padding:7px;
+  margin-top:2px;
+  margin-bottom:2px;
+  border-top:0.5px solid lightgrey;
+}
+
+  .linesLast {
+    padding:7px;
+    margin-top:2px;
+    margin-bottom:2px;
+    border-top:0.5px solid lightgrey;
+    border-bottom:0.5px solid lightgrey;
+  }
+.tagPos {
+  position:relative;
+  right:0;
+  float:right;
+  margin-top:0px;
+  border:0;
+
+}
+
+.progress {
+  float:right;
+  margin-top:2px;
+  background:#E5EEF7;
+  padding-top:2px;
+  padding-bottom:2px;
+  font-size:17px;
+  padding-left:8px;
+  padding-right:8px;
+
+}
+
+.notyet {
+  float:right;
+  margin-top:2px;
+  background:#CCDFF1;
+  margin-top:2px;
+  font-size:17px;
+    padding-top:2px;
+    padding-bottom:2px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
+.completed {
+  float:right;
+  font-size:17px;
+}
+
+
+
+.cannot {
+  float:right;
+  font-size:17px;
+}
+}
+
+</style>
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-two-thirds">
+
+
+      <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span>
+<h1 class="nhsuk-heading-xl">{{ data['name']|default("Covid-19 Spring 2024 Booster") }}
+      <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|default("29 April") }} - {{ data['toDate']|default("12 May")}}</span>
+
+</h1>
+
+{% from 'inset-text/macro.njk' import insetText %}
+
+{{ insetText({
+  "HTML": "<p>Something important to grasp on this page lorem ipsum dolor amet sit blah.</p>"
+}) }}
+
+
+
+<h2 class="nhsuk-headingl">Section heading 1</h2>
+
+<ul class="nhsuk-list">
+  <li class="lines"><a class="nhsuk-link" href="name-dates?editDetails=true">Edit campaign details</a>
+    {% if (data['name-date-status'] == 'yes') and (data['name']|length > 0) and (data['fromDate']|length > 0) %}
+    <span class="completed">Completed</span>
+    {% elif (data['progress'] == 'true') or (data['fromDate']|length > 0) or (data['name']|length > 0) or (data['name-date-status'] == 'no') %}
+    <span class="progress">In progress</span>
+      </li>
+      {% else %}
+      <span class="notyet">Not yet started</span>
+      {% endif %}
+
+  <li class="lines"><a class="nhsuk-link" href="select-cohorts">Select cohorts</a>
+
+    {% if data['selectCohorts'] == 'done' %}
+    <span class="completed">Completed</span>
+    {% else %}
+    <span class="notyet">Not yet started</span>
+    {% endif %}
+
+  </li>
+
+
+    <li class="linesLast"><a class="nhsuk-link" href="#">Assign people to the campaign</a>
+    <span class="notyet">Not yet started</span></li>
+
+</ul>
+<h2 class="nhsuk-heading-l">Section heading 2</h2>
+<ul class="nhsuk-list">
+  <li class="lines"><a class="nhsuk-link" href="task-1">Carry out a task 1</a>
+    {% if data['task1'] == 'yes' %}
+    <span class="completed">Completed</span>
+  {% elif data['task1'] == 'no' %}
+  <span class="progress">In progress</span>
+
+    {% else %}
+    <span class="notyet">Not yet started</span>
+
+{% endif %}
+  </li>
+  <li class="lines"><a class="nhsuk-link" href="task-2">Carry out a task 2</a>
+    {% if data['task2'] == 'yes' %}
+
+  <span class="completed">Completed</span>
+
+    {% elif data['task2'] == 'no' %}
+  <span class="progress">In progress</span>
+
+    {% else %}
+        <span class="notyet">Not yet started</span>
+    {% endif %}
+  </li>
+  <li class="linesLast"><a class="nhsuk-link" href="task-3">Carry out a task 3</a>
+    {% if data['task3'] == 'yes' %}
+
+    <span class="completed">Completed</span>
+
+      {% elif data['task3'] == 'no' %}
+    <span class="progress">In progress</span>
+
+      {% else %}
+          <span class="notyet">Not yet started</span>
+      {% endif %}
+    {% if data['task3'] == 'no' %}
+
+    {% endif %}
+  </li>
+</ul>
+
+
+
+<h2 class="nhsuk-heading-l">Apply exclusion rules</h2>
+<ul class="nhsuk-list">
+  <li class="lines"><a class="nhsuk-link" href="#">Review the rules</a>
+  <span class="notyet">Not yet started</span>
+ </li>
+ <li class="lines"><a class="nhsuk-link" href="#">Amend the rules</a>
+ <span class="notyet">Not yet started</span>
+</li>
+<li class="linesLast"><a class="nhsuk-link" href="#">Finalise and approve the rules</a>
+<span class="notyet">Not yet started</span>
+</li>
+</ul>
+
+<h2 class="nhsuk-heading-l">Manage channels</h2>
+<ul class="nhsuk-list">
+
+<li class="lines"><a class="nhsuk-link" href="#">Finalise and approve the channel strategy</a>
+<span class="notyet">Not yet started</span>
+</li>
+<li class="lines"><a class="nhsuk-link" href="#">Manage campaign assets and translations</a>
+<span class="notyet">Not yet started</span>
+</li>
+</ul>
+
+<h2 class="nhsuk-heading-l">Campaign launchpad</h2>
+
+
+    </div>
+  </div>
+
+{% endblock %}
