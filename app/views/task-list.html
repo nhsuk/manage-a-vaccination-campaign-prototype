@@ -24,23 +24,6 @@
 
 <style>
 
-.lines {
-  padding:5px;
-  border-top:0.5px solid lightgrey;
-}
-
-  .linesLast {
-    padding:5px;
-    border-top:0.5px solid lightgrey;
-    border-bottom:0.5px solid lightgrey;
-  }
-
-.tagPos {
-  float:right;
-  right:0;
-}
-
-<style>
 
 .lines {
   padding:7px;
@@ -113,112 +96,36 @@
       <span class="nhsuk-body-l nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
 
 </h1>
-
-{% from 'inset-text/macro.njk' import insetText %}
-
-{{ insetText({
-  "HTML": "<p>Something important to grasp on this page lorem ipsum dolor amet sit blah.</p>"
-}) }}
-
-
-
-<h2 class="nhsuk-headingl">Section heading 1</h2>
+<p class="nhsuk-body">Create or update the campaign information.</p>
 
 <ul class="nhsuk-list">
-  <li class="lines"><a class="nhsuk-link" href="name-dates?editDetails=true">Edit campaign details</a>
-    {% if (data['name-date-status'] == 'yes') and (data['name']|length > 0) and (data['fromDate']|length > 0) %}
-    <span class="completed">Completed</span>
-    {% elif (data['progress'] == 'true') or (data['fromDate']|length > 0) or (data['name']|length > 0) or (data['name-date-status'] == 'no') %}
-    <span class="progress">In progress</span>
-      </li>
-      {% else %}
-      <span class="notyet">Not yet started</span>
-      {% endif %}
+<li class="lines"><a class="nhsuk-link" href="name?editName=true">Campaign name</a>
+<span class="completed">Completed</span>
+</li>
 
-  <li class="lines"><a class="nhsuk-link" href="select-cohorts">Select cohorts</a>
+<li class="lines"><a class="nhsuk-link" href="dates?editDates=true">Campaign dates</a>
+<span class="completed">Completed</span>
+</li>
 
-    {% if data['selectCohorts'] == 'done' %}
-    <span class="completed">Completed</span>
-    {% else %}
-    <span class="notyet">Not yet started</span>
-    {% endif %}
+<li class="lines"><a class="nhsuk-link" href="#">Assign a manager, approver and reviewer</a>
+<span class="progress">In progress</span>
+</li>
 
-  </li>
-
-
-    <li class="linesLast"><a class="nhsuk-link" href="#">Assign people to the campaign</a>
-    <span class="notyet">Not yet started</span></li>
-
-</ul>
-<h2 class="nhsuk-heading-l">Section heading 2</h2>
-<ul class="nhsuk-list">
-  <li class="lines"><a class="nhsuk-link" href="task-1">Carry out a task 1</a>
-    {% if data['task1'] == 'yes' %}
-    <span class="completed">Completed</span>
-  {% elif data['task1'] == 'no' %}
-  <span class="progress">In progress</span>
-
-    {% else %}
-    <span class="notyet">Not yet started</span>
-
+<li class="lines"><a class="nhsuk-link" href="select-cohorts">Select campaign cohorts</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
 {% endif %}
-  </li>
-  <li class="lines"><a class="nhsuk-link" href="task-2">Carry out a task 2</a>
-    {% if data['task2'] == 'yes' %}
+</li>
 
-  <span class="completed">Completed</span>
+<li class="lines"><a class="nhsuk-link" href="#">Set number of invitations</a>
+<span class="notyet">Not started</span>
+</li>
 
-    {% elif data['task2'] == 'no' %}
-  <span class="progress">In progress</span>
-
-    {% else %}
-        <span class="notyet">Not yet started</span>
-    {% endif %}
-  </li>
-  <li class="linesLast"><a class="nhsuk-link" href="task-3">Carry out a task 3</a>
-    {% if data['task3'] == 'yes' %}
-
-    <span class="completed">Completed</span>
-
-      {% elif data['task3'] == 'no' %}
-    <span class="progress">In progress</span>
-
-      {% else %}
-          <span class="notyet">Not yet started</span>
-      {% endif %}
-    {% if data['task3'] == 'no' %}
-
-    {% endif %}
-  </li>
 </ul>
 
 
-
-<h2 class="nhsuk-heading-l">Apply exclusion rules</h2>
-<ul class="nhsuk-list">
-  <li class="lines"><a class="nhsuk-link" href="#">Review the rules</a>
-  <span class="notyet">Not yet started</span>
- </li>
- <li class="lines"><a class="nhsuk-link" href="#">Amend the rules</a>
- <span class="notyet">Not yet started</span>
-</li>
-<li class="linesLast"><a class="nhsuk-link" href="#">Finalise and approve the rules</a>
-<span class="notyet">Not yet started</span>
-</li>
-</ul>
-
-<h2 class="nhsuk-heading-l">Manage channels</h2>
-<ul class="nhsuk-list">
-
-<li class="lines"><a class="nhsuk-link" href="#">Finalise and approve the channel strategy</a>
-<span class="notyet">Not yet started</span>
-</li>
-<li class="lines"><a class="nhsuk-link" href="#">Manage campaign assets and translations</a>
-<span class="notyet">Not yet started</span>
-</li>
-</ul>
-
-<h2 class="nhsuk-heading-l">Campaign launchpad</h2>
 
 
     </div>

@@ -2,7 +2,11 @@
 
 {% extends 'layout.html' %}
 {% block header %}
+{% if data['name']|length > 0 %}
 {% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
+{% include 'foundations/header-signed-in.html' %}
+{% endif %}
 {% endblock %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
@@ -25,25 +29,34 @@
     <div class="nhsuk-grid-column-two-thirds">
 
       {% if data['change'] == 'name' %}
+      {% set head = 'Enter the campaign name' %}
       {% set action = 'summary' %}
       {% else %}
       {% set action = 'dates' %}
+      {% set head = 'Create a campaign name' %}
       {% endif %}
 
 
+{% if data['editName'] == 'true' %}
+  {% set head = 'Enter the campaign name' %}
+    {% set action = 'task-list' %}
+{% endif %}
 
       <form action="{{ action }}" method="post">
   <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
         <h1>
-          What is the new campaign name?
+          {{ head }}
         </h1>
-
+      <p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand.</p>
         {% from 'input/macro.njk' import input %}
 
         {{ input({
           "label": {
-            "text": "Name"
+            "text": "Campaign name"
           },
+    "hint": {
+    "text": "eg COVID-19 seasonal spring vaccination 2024"
+  },
           "id": "name",
           "name": "name",
           "value": data['name']
@@ -53,7 +66,7 @@
 
 
         {{ button({
-          text: "Continue"
+          text: "Save and continue"
         }) }}
       </form>
 

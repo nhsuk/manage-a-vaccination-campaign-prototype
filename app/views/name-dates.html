@@ -23,7 +23,7 @@
 {% block content %}
 
 {% if data['editDetails'] == 'true' %}
-{% set viewDetails = 'Edit campaign details' %}
+{% set viewDetails = 'Update an existing campaign' %}
 {% else %}
 {% set viewDetails = 'Create a new campaign' %}
 {% endif %}
@@ -32,8 +32,12 @@
       <h1 class="nhsuk-heading-xl">{{viewDetails}}</h1>
 
       <h2 class="nhsuk-heading-l">
-What is the campaign name?
+Create a campaign name
 </h2>
+
+<p class="nhsuk-body">Choose a name that describes the campaign and is easy to understand.</p>
+
+
       <!-- <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
 
 
@@ -55,7 +59,7 @@ What is the campaign name?
             "text": "Campaign name"
           },
           "hint": {
-            "text": "For example lorem ipsum dolor amet sit is the format lorem dingdong."
+            "text": "eg COVID-19 seasonal spring vaccinations 2024"
           },
           "id": "name",
           "name": "name",
@@ -64,7 +68,10 @@ What is the campaign name?
 
 <HR>
         <h2 class="nhsuk-heading-l">
-  When will the campaign start and end?</h2>
+  Enter the campaign start and end dates</h2>
+
+  <p class="nhsuk-body">The dates you enter won't start or end the campaign. They will be used to make sure the data is available during this period.</p>
+
 
         <div class="nhsuk-grid-row nhsuk-u-padding-bottom-3">
 
@@ -89,10 +96,13 @@ What is the campaign name?
               </div>
 
         </div>
-<HR>
+
+
+<div class="nhsuk-u-padding-top-9">
         {{ button({
           text: "Save and continue"
         }) }}
+</div>
       </form>
 
 
