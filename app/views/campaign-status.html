@@ -26,29 +26,30 @@
 .progress {
 
   margin-top:2px;
-  background:#d8dde0;
+  background:#E5EEF7;
   padding-top:2px;
   padding-bottom:2px;
-
+  font-size:17px;
   padding-left:8px;
   padding-right:8px;
 
 }
+
 </style>
 
   <div class="nhsuk-grid-row">
-    <div class="nhsuk-grid-column-full">
+    <div class="nhsuk-grid-column-three-quarters">
 
 
       <table role="table" class="nhsuk-table-responsive">
-        <caption class="nhsuk-table__caption nhsuk-u-font-size-48">My campaign tasks</caption>
+        <caption class="nhsuk-table__caption nhsuk-u-font-size-48">Campaign status</caption>
         <thead role="rowgroup" class="nhsuk-table__head">
           <tr role="row">
             <th role="columnheader" class="" scope="col">
-              Campaign
+              Campaign name
             </th>
             <th role="columnheader" class="" scope="col">
-              Last update
+              Date last updated
             </th>
             <th role="columnheader" class="" scope="col">
               Status
@@ -61,7 +62,7 @@
               <span class="nhsuk-table-responsive__heading">Age </span><a href="task-list?progress=true">{{ data['name']|default("Covid-19 Spring 2024 Booster")}}</a>
             </td>
             <td role="cell" class="nhsuk-table__cell">
-              <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']|default("Wed 09 April 16:36pm") }}
+              <span class="nhsuk-table-responsive__heading">Last update? </span> {{ data['fromDate']|lastUpdated|default("Wed 09 April 16:36pm") }}
             </td>
             <td role="cell" class="nhsuk-table__cell">
               <span class="nhsuk-table-responsive__heading">Status? </span>

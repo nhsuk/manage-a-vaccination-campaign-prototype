@@ -23,21 +23,21 @@
 {% block content %}
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
-      <h1 class="nhsuk-heading-xl">Select cohorts</h1>
+      <h1 class="nhsuk-heading-xl">Select campaign cohorts</h1>
+
+<!-- {{ data['repickCohorts']}} -->
+
+{% set allCohortList = ["COVID-19 vaccination for people aged 75 to 115 years old","COVID-19 vaccination for people aged 6 months to 74 years old with a weakened immune system","COVID-19 vaccination for people who live in a care home for older adults","COVID-19 65+ Autumn Winter 2023","COVID-19 12+ Severely Immunosuppressed","COVID-19 5-11 Severely Immunosuppressed","COVID-19 Under16 Asplenia","COVID-19 Under16 Chronic Heart Conditions","COVID-19 Under16 Chronic Kidney Liver Digestive","COVID-19 Under 16 Chronic neurological Disease","COVID-19 Under 16 Chronic respiratory Disease","COVID-19 Under 16 Endocrine Disorders","COVID-19 Under 16 Immunosuppression","COVID-19 Under 16 Pregnancy","COVID-19 Under 16 Serious Genetic Abnormalities","COVID-19 16+ Asplenia","COVID-19 16+ Chronic Heart and Vascular Disease","COVID-19 16+ Chronic Kidney Disease","COVID-19 16+ Chronic Liver Disease","COVID-19 16+ Chronic Neurological Disease","COVID-19 16+ Chronic Respiratory Disease","COVID-19 16+ Diabetes and Endocrine Disorders","COVID-19 16+ Immunosuppression","COVID-19 16+ Morbid Obesity","COVID-19 16+ Pregnant Women","COVID-19 16+ Severe Mental Illness","Flu 2-3 Autumn Winter 2023","Flu 4-16 Autumn Winter 2023","Flu 65+ Autumn Winter 2023","Flu Chronic Respiratory Disease","Flu Chronic Heart Disease","Flu Chronic Kidney Disease","Flu Chronic Liver Disease","Flu Chronic Neurological Disease","Flu Coded Eligibility","Flu Diabetes","Flu Immunosuppression","Flu Morbid Obesity"] %}
 
 
+{% set covidCohortList = ["75 to 115 years old seasonal spring 2024 vaccination","65+ Autumn Winter 2023","12+ Severely Immunosuppressed","5-11 Severely Immunosuppressed","Under 16 Asplenia","Under 16 Chronic Heart Conditions","Under 16 Chronic Kidney Liver Digestive","Under 16 Chronic neurological Disease","Under 16 Chronic respiratory Disease","Under 16 Endocrine Disorders","Under 16 Immunosuppression","Under 16 Pregnancy","Under 16 Serious Genetic Abnormalities","16+ Asplenia","16+ Chronic Heart and Vascular Disease","16+ Chronic Kidney Disease","16+ Chronic Liver Disease","16+ Chronic Neurological Disease","16+ Chronic Respiratory Disease","16+ Diabetes and Endocrine Disorders","16+ Immunosuppression","16+ Morbid Obesity","16+ Pregnant Women","16+ Severe Mental Illness"] %}
 
-{% set allCohortList = ["Covid 65+ Autumn Winter 2023","Covid 12+ Severely Immunosuppressed","Covid 5-11 Severely Immunosuppressed","Covid Under16 Asplenia","Covid Under16 Chronic Heart Conditions","Covid Under16 Chronic Kidney Liver Digestive","Covid Under 16 Chronic neurological Disease","Covid Under 16 Chronic respiratory Disease","Covid Under 16 Endocrine Disorders","Covid Under 16 Immunosuppression","Covid Under 16 Pregnancy","Covid Under 16 Serious Genetic Abnormalities","Covid 16+ Asplenia","Covid 16+ Chronic Heart and Vascular Disease","Covid 16+ Chronic Kidney Disease","Covid 16+ Chronic Liver Disease","Covid 16+ Chronic Neurological Disease","Covid 16+ Chronic Respiratory Disease","Covid 16+ Diabetes and Endocrine Disorders","Covid 16+ Immunosuppression","Covid 16+ Morbid Obesity","Covid 16+ Pregnant Women","Covid 16+ Severe Mental Illness","Flu 2-3 Autumn Winter 2023","Flu 4-16 Autumn Winter 2023","Flu 65+ Autumn Winter 2023","Flu Chronic Respiratory Disease","Flu Chronic Heart Disease","Flu Chronic Kidney Disease","Flu Chronic Liver Disease","Flu Chronic Neurological Disease","Flu Coded Eligibility","Flu Diabetes","Flu Immunosuppression","Flu Morbid Obesity","Covid Over 75 and Under 115 Years","Covid Carers of Immunosuppressed Patients","Covid Frontline Health and Social Care Workers","Covid 16-18 in Long-stay Nursing and Residential Care Settings","Flu Under 16 Household Contacts of Immunosuppressed"] %}
+{% set fluCohortList = ["2 to 3 years old autumn winter 2023","4 to 16 years old autumn winter 2023","65+ Autumn Winter 2023","Chronic Respiratory Disease","Chronic Heart Disease","Chronic Kidney Disease","Chronic Liver Disease","Chronic Neurological Disease","Coded Eligibility","Diabetes","Immunosuppression","Morbid Obesity"] %}
 
+{% set under16CohortList = ["COVID-19 12+ Severely Immunosuppressed","COVID-19 5-11 Severely Immunosuppressed","COVID-19 Under16 Asplenia","COVID-19 Under16 Chronic Heart Conditions","COVID-19 Under16 Chronic Kidney Liver Digestive","COVID-19 Under 16 Chronic neurological Disease","COVID-19 Under 16 Chronic respiratory Disease","COVID-19 Under 16 Endocrine Disorders","COVID-19 Under 16 Immunosuppression","COVID-19 Under 16 Pregnancy","COVID-19 Under 16 Serious Genetic Abnormalities"] %}
+<!-- {% set immunoCohortList = ["COVID-19 12+ Severely Immunosuppressed","COVID-19 5-11 Severely Immunosuppressed","COVID-19 Under 16 Immunosuppression","COVID-19 16+ Immunosuppression","Flu Immunosuppression"] %} -->
 
-{% set covidCohortList = ["Covid 65+ Autumn Winter 2023","Covid 12+ Severely Immunosuppressed","Covid 5-11 Severely Immunosuppressed","Covid Under16 Asplenia","Covid Under16 Chronic Heart Conditions","Covid Under16 Chronic Kidney Liver Digestive","Covid Under 16 Chronic neurological Disease","Covid Under 16 Chronic respiratory Disease","Covid Under 16 Endocrine Disorders","Covid Under 16 Immunosuppression","Covid Under 16 Pregnancy","Covid Under 16 Serious Genetic Abnormalities","Covid 16+ Asplenia","Covid 16+ Chronic Heart and Vascular Disease","Covid 16+ Chronic Kidney Disease","Covid 16+ Chronic Liver Disease","Covid 16+ Chronic Neurological Disease","Covid 16+ Chronic Respiratory Disease","Covid 16+ Diabetes and Endocrine Disorders","Covid 16+ Immunosuppression","Covid 16+ Morbid Obesity","Covid 16+ Pregnant Women","Covid 16+ Severe Mental Illness"] %}
-
-{% set fluCohortList = ["Flu 2-3 Autumn Winter 2023","Flu 4-16 Autumn Winter 2023","Flu 65+ Autumn Winter 2023","Flu Chronic Respiratory Disease","Flu Chronic Heart Disease","Flu Chronic Kidney Disease","Flu Chronic Liver Disease","Flu Chronic Neurological Disease","Flu Coded Eligibility","Flu Diabetes","Flu Immunosuppression","Flu Morbid Obesity"] %}
-
-{% set under16CohortList = ["Covid 12+ Severely Immunosuppressed","Covid 5-11 Severely Immunosuppressed","Covid Under16 Asplenia","Covid Under16 Chronic Heart Conditions","Covid Under16 Chronic Kidney Liver Digestive","Covid Under 16 Chronic neurological Disease","Covid Under 16 Chronic respiratory Disease","Covid Under 16 Endocrine Disorders","Covid Under 16 Immunosuppression","Covid Under 16 Pregnancy","Covid Under 16 Serious Genetic Abnormalities"] %}
-{% set immunoCohortList = ["Covid 12+ Severely Immunosuppressed","Covid 5-11 Severely Immunosuppressed","Covid Under 16 Immunosuppression","Covid 16+ Immunosuppression","Flu Immunosuppression"] %}
-
-{% set newCohortList = [["Covid Over 75 and Under 115 Years","15 April 2024"],["Covid Carers of Immunosuppressed Patients","12 April 2024"],["Covid Frontline Health and Social Care Workers","3 April 2024"],["Covid 16-18 in Long-stay Nursing and Residential Care Settings","29 March 2024"],["Flu Under 16 Household Contacts of Immunosuppressed Patients","2 March 2024"]] %}
+{% set newCohortList = [["COVID-19 vaccination for people aged 75 to 115 years old","15 April 2024"],["COVID-19 vaccination for people aged 6 months to 74 years old with a weakened immune system","15 April 2024"],["COVID-19 vaccination for people who live in a care home for older adults","15 April 2024"]] %}
 
 <form action="summary-cohorts?repickCohorts=false" method="post">
 
@@ -116,9 +116,9 @@
     },
     "items": [
       {
-        "value": items,
+        "value": "COVID-19 "+items,
         "text": items,
-        checked: checked('covidCohorts',items)
+        checked: checked('covidCohorts',"COVID-19 "+items)
       }
     ]
   }) }}
@@ -143,9 +143,9 @@
     },
     "items": [
       {
-        "value": items,
+        "value": "Flu "+items,
         "text": items,
-        checked: checked('fluCohorts',items)
+        checked: checked('fluCohorts',"Flu "+items)
       }
     ]
   }) }}
@@ -205,6 +205,7 @@
           {% endfor %}
 {% endset %}
 
+
   {% from 'details/macro.njk' import details %}
 
   {% if data['covidCohorts'].length > 0 %}
@@ -227,32 +228,34 @@
   {{ details({
     "classes": "nhsuk-expander",
     "open": covidOpen,
-    "text": "Covid ["+covidCohortList.length+" cohorts]",
+    "text": "COVID-19 vaccinations ["+covidCohortList.length+" cohorts]",
     "HTML": covidHTML
   }) }}
 
   {{ details({
     "classes": "nhsuk-expander",
-    "open": u16Open,
-    "text": "Under 16s ["+under16CohortList.length+" cohorts]",
-    "HTML": under16HTML
+    "open": fluOpen,
+    "text": "Flu vaccinations ["+fluCohortList.length+" cohorts]",
+    "HTML": fluHTML
   }) }}
 
   {{ details({
     "classes": "nhsuk-expander",
-    "open": fluOpen,
-    "text": "Flu ["+fluCohortList.length+" cohorts]",
-    "HTML": fluHTML
+    "open": u16Open,
+    "text": "Vaccinations for children under 16 years old ["+under16CohortList.length+" cohorts]",
+    "HTML": under16HTML
   }) }}
+
+
 
   {% from 'details/macro.njk' import details %}
 
-  {{ details({
+  <!-- {{ details({
     "classes": "nhsuk-expander",
     "open": immunoOpen,
     "text": "Immunosuppression ["+immunoCohortList.length+" cohorts]",
     "HTML": immunoHTML
-  }) }}
+  }) }} -->
 
   {{ details({
     "classes": "nhsuk-expander",

@@ -31,7 +31,7 @@
     </h1>
 
 
-
+<p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
 
 
 
@@ -54,30 +54,34 @@
         <li>{{item}}</li>
     </ul>
     {% endfor %} -->
-
+  {% for item in cohortsArray %}
     <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
-      <div class="nhsuk-summary-list__row">
+
+      <!-- <div class="nhsuk-summary-list__row"> -->
+
         <dt class="nhsuk-summary-list__key">
           Cohort
         </dt>
-        <dd class="nhsuk-summary-list__value">
 
-          {% for item in cohortsArray %}
-          <ul class="nhsuk-list">
+        <dd class="nhsuk-summary-list__value">{{item}}
+
+
+          <!-- <ul class="nhsuk-list">
               <li>{{item}}</li>
-          </ul>
-          {% endfor %}
+          </ul> -->
+
 
         </dd>
         <dd class="nhsuk-summary-list__actions">
           <a href="select-cohorts?repickCohorts=true">
-            Change<span class="nhsuk-u-visually-hidden"> cohorts</span>
+            Update<span class="nhsuk-u-visually-hidden"> {{item}} cohort</span>
           </a>
         </dd>
-      </div>
+
+      <!-- </div> -->
 
     </dl>
-
+          {% endfor %}
 
 
 

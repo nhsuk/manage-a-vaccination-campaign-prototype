@@ -25,7 +25,6 @@ export default (_env) => {
    * @returns {number} Age in years
    */
 
-  
 
   /**
    * Format date with day of the week
