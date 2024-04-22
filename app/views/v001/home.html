@@ -2,7 +2,11 @@
 
 {% extends 'layout.html' %}
 {% block header %}
+{% if data['name']|length >0 %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% else %}
 {% include 'foundations/header-signed-in.html' %}
+{% endif %}
 {% endblock %}
 
 {% set mainClasses = "nhsuk-main-wrapper--s" %}
@@ -24,8 +28,7 @@
 
         <div class="nhsuk-grid-column-full">
 
-        <h1>Welcome back {{ data['email-address'] }}</h1>
-
+        <h1>Welcome back {{ data['email-address']|default("name@nhs.net") }}</h1>
 
         {% from 'card/macro.njk' import card %}
         {% if data['name']|length >0 %}
@@ -45,15 +48,25 @@
     {% endif %}
 
   <ul class="nhsuk-grid-row nhsuk-card-group">
-    <li class="nhsuk-grid-column-one-quarter nhsuk-card-group__item">
+    <li class="nhsuk-grid-column-one-third nhsuk-card-group__item">
       {{ card({
         "href": "name",
         "clickable": "true",
         "headingLevel": 2,
-        "heading": "Create a new campaign",
+        "heading": "Create a new vaccination campaign",
         "headingClasses": "nhsuk-heading-xs"
       }) }}
     </li>
+
+    <!-- <li class="nhsuk-grid-column-one-half nhsuk-card-group__item">
+      {{ card({
+        "href": "#",
+        "clickable": "true",
+        "headingLevel": 2,
+        "heading": "Update an existing vaccination campaign",
+        "headingClasses": "nhsuk-heading-xs"
+      }) }}
+    </li> -->
 
   </ul>
 
