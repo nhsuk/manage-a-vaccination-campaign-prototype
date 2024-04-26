@@ -200,15 +200,12 @@ border-bottom:0.5px solid lightgrey;
     {% if cohortsArray.length > 0 %}
 
 
-    <li class="clean-line"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" budget status">Size this cohort</a>
+
+    <li class="clean-line"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" budget status">Apply constraints to cohort selection</a>
       <span class="notyet">Not started</span>
 
     </li>
-    <li class="clean-line-last"><a class="nhsuk-link--no-visited-state" href="#" aria-describedby=" budget status">Apply constraints to cohort</a>
-      <span class="notyet">Not started</span>
-
-    </li>
-
+  
     {% endif %}
 {% endfor %}
 
@@ -216,7 +213,7 @@ border-bottom:0.5px solid lightgrey;
 
 
     <li class="clean-line"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="select-cohorts">Select campaign cohorts</a>
-    {% if data['selectCohorts'] !== 'done' %}
+    {% if data['selectCohorts'] == 'done' %}
     <span class="progress">In progress</span>
     {% else %}
     <span class="notyet">Not started</span>
@@ -229,7 +226,7 @@ border-bottom:0.5px solid lightgrey;
 
 
 
-<!--
+
 <h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Define rhythm of sending invites and reminders</h2>
 <li class="clean-line-last"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="#">Choose the steps required for campaign style</a>
 <span class="notyet">Not started</span>
@@ -260,7 +257,7 @@ border-bottom:0.5px solid lightgrey;
 </li>
 <li class="clean-line-last"><a class="nhsuk-link nhsuk-link nhsuk-link--no-visited-state" href="#">Package up invitations and with dates for campaign run</a>
 <span class="cannot">Cannot start</span>
-</li> -->
+</li>
 
 </ul>
 
