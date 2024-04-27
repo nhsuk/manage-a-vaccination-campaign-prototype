@@ -83,6 +83,8 @@
   float:right;
   font-size:17px;
 }
+
+
 }
 
 </style>
@@ -103,10 +105,17 @@
 </h1>
 <p class="nhsuk-body">Create or update the campaign information.</p>
 
+
 <ul class="nhsuk-list">
+</div>
+  <div class="nhsuk-grid-column-two-thirds">
+
+    <h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Campaign admin details</h2>
 <li class="lines"><a class="nhsuk-link" href="name?editName=true">Campaign name</a>
 <span class="completed">Completed</span>
 </li>
+
+
 
 <li class="lines"><a class="nhsuk-link" href="dates?editDates=true">Campaign dates</a>
   {% if data['fromDate']|length > 0 %}
@@ -116,8 +125,32 @@
   {% endif %}
 </li>
 
+
+
+<li class="lines"><a class="nhsuk-link" href="#">Upload campaign budget</a>
+  {% if data['fromDate']|length > 0 %}
+<span class="completed">Completed</span>
+  {% else %}
+  <span class="notyet">Not started</span>
+  {% endif %}
+</li>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Build campaign team</h2>
+
 <li class="lines"><a class="nhsuk-link" href="#">Assign a manager, approver and reviewer</a>
 <span class="progress">In progress</span>
+</li>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Target campaign cohorts</h2>
+
+
+
+<li class="lines"><a class="nhsuk-link" href="select-cohorts">Commission new campaign cohorts</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
 </li>
 
 <li class="lines"><a class="nhsuk-link" href="select-cohorts">Select campaign cohorts</a>
@@ -128,16 +161,53 @@
 {% endif %}
 </li>
 
-<li class="lines"><a class="nhsuk-link" href="#">Set number of invitations</a>
+<li class="lines"><a class="nhsuk-link" href="select-cohorts">Estimate size of campaign</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="#">Apply common constraints to cohort selection</a>
+{% if data['selectCohorts'] == 'done' %}
+<span class="completed">Completed</span>
+{% else %}
+<span class="notyet">Not started</span>
+{% endif %}
+</li>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Define strategy for targetted communications</h2>
+<li class="lines"><a class="nhsuk-link" href="#">Identify campaign stages and contact style</a>
+<span class="notyet">Not started</span>
+</li>
+<li class="lines"><a class="nhsuk-link" href="#">Set number of invitations and dates for campaign run</a>
 <span class="notyet">Not started</span>
 </li>
 
-</ul>
+
+<h2 class="nhsuk-heading-s nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">Manage campaign assets</h2>
+
+<li class="lines"><a class="nhsuk-link" href="#">Assign campaign asset porduction</a>
+<span class="notyet">Not started</span>
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="#">Review / approve campaign assets</a>
+<span class="notyet">Not started</span>
+</li>
+
+<li class="lines"><a class="nhsuk-link" href="#">Manage language translations and accessible media</a>
+<span class="notyet">Not started</span>
+</li>
+<li class="lines"><a class="nhsuk-link" href="#">Perform quality review</a>
+<span class="notyet">Not started</span>
+</li>
 
 
 
 
     </div>
+
   </div>
 
 {% endblock %}

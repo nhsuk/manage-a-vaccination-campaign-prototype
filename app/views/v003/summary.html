@@ -50,7 +50,7 @@
               Campaign dates
             </dt>
             <dd class="nhsuk-summary-list__value">
-              {{ data['fromDate']|formatDate }} - {{ data['toDate']|formatDate}}
+              {{ data['fromDate']|formatDate | default("Mon 29 Apr 2024") }} - {{ data['toDate']|formatDate | default("Sun 12 May 2024")}}
             </dd>
             <dd class="nhsuk-summary-list__actions">
               <a href="dates?change=dates">
