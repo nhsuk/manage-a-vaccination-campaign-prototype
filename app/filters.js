@@ -1,5 +1,3 @@
-
-
 module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   /**
    * Instantiate object used to store the methods registered as a
@@ -8,7 +6,6 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
    * @type {Object}
    */
   const filters = {};
-
   var moment = require('moment'); // require
   // moment().format();
 
@@ -19,6 +16,7 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
   filters.lastUpdated = string => {
     return moment().format("dddd DD MMMM YYYY");
   }
+
 
   return filters;
 };

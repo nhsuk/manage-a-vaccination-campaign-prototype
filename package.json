@@ -25,6 +25,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.19.2",
     "express-session": "^1.17.3",
+    "fs": "^0.0.1-security",
     "govuk-prototype-kit": "^13.16.2",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
@@ -35,10 +36,12 @@
     "gulp-sass": "^5.1.0",
     "keypather": "^3.1.0",
     "luxon": "^3.4.4",
+    "minimatch": "^9.0.4",
     "moment": "^2.30.1",
     "nhsuk-frontend": "^8.1.0",
     "nunjucks": "^3.2.4",
     "path": "^0.12.7",
+    "recursive-readdir": "^2.2.3",
     "sass": "^1.69.5"
   },
   "devDependencies": {
