@@ -36,6 +36,16 @@
 
 <h2 class="nhsuk-heading-l">Pages</h2>
 
+
+{% for items in filesArray %}
+<ul>
+<li>{{ items }}</li>
+</ul>
+{% endfor %}
+
+
+<!-- {% include 'listing.html' %} -->
+
 {% endset %}
 {% set v002HTML %}
 
@@ -53,6 +63,8 @@
 
 
       <h1 class="nhsuk-heading-xl">Manage a vaccination campaign</h1>
+
+
 
       {% from 'button/macro.njk' import button %}
 
@@ -107,10 +119,17 @@
   "HTML": storedHTML
 }) }}
 
+
+
+
 {% endif %}
 
 
-
+{{ details({
+  "classes": "nhsuk-expander",
+  "text": latestVersion,
+  "HTML": v003HTML
+}) }}
 
 
 

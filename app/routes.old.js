@@ -6,11 +6,9 @@ const router = express.Router();
 
 var fs = require('fs');
 var path = require('path');
-var process = require('process');
 
-const filesArray = fs.readdirSync("./app/views/v003/")
-const workingD = process.cwd();
 
+const filesArray = fs.readdirSync("./app/views/v003")
 
 //
 // var walk = function(dir) {
@@ -56,9 +54,9 @@ router.get('/clear-data', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/', (req, res) => {
+router.get('/outputFileList', (req, res) => {
 
-  res.render('index', {workingD: workingD, filesArray:filesArray})
+  res.render('index', {filesArray: filesArray})
 
 })
 
