@@ -52,7 +52,7 @@
 
               <span class="nhsuk-caption-l nhsuk-caption--top" for="fromDate">Start date</span>
               <!-- <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate"> -->
-              <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate'] }}" type="date" placeholder="dd-mm-yyyy" id="fromDate" name="fromDate">
+              <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['fromDate']}}"  type="date" placeholder="yyyy-mm-dd" id="fromDate" name="fromDate">
 
 
 
@@ -61,12 +61,14 @@
             <div class="nhsuk-grid-column-one-half">
 
               <span class="nhsuk-caption-l nhsuk-caption--top" for="toDate">End date</span>
-              <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px"  value="{{ data['toDate'] }}" type="date" placeholder="dd-mm-yyyy" id="toDate" name="toDate">
+              <input datetimeformat="dd/mm/yyyy" style="border:1px solid lightgrey;width:240px;height:40px;font-size:24px;background:white;margin-top:10px" min="{{ data['fromDate']}}" value="{{ data['toDate'] }}" type="date" placeholder="dd-mm-yyyy" id="toDate" name="toDate">
 
 
 
             </div>
       </div>
+
+
 
       {{ button({
         text: "Save and continue"
@@ -77,5 +79,25 @@
 
     </div>
   </div>
+
+<script>
+
+  var todayDate = new Date().toISOString().slice(0, 10);
+
+  const fromEl = document.getElementById('fromDate');
+  const fromElist = document.getElementById('fromDate');
+  const toEl = document.getElementById('toDate');
+  fromEl.min = todayDate.toString();
+
+  fromElist.addEventListener('change', (event) => {
+  console.log(fromEl.value)
+  toEl.min = fromEl.value
+     });
+
+
+</script>
+
+
+
 
 {% endblock %}

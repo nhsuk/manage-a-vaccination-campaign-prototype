@@ -25,9 +25,9 @@
 
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-two-thirds">
-        <h1>
-          Summary
-        </h1>
+        <h1 class="nhsuk-heading-xl">Check the details of the campaign</h1>
+        <p class="nhsuk-body">These are the details, you can change them now or later on.</p>
+
 
         <dl class="nhsuk-summary-list">
 
@@ -36,7 +36,7 @@
               Campaign name
             </dt>
             <dd class="nhsuk-summary-list__value">
-              {{ data['name'] }}
+              {{ data['name'] | default('Spring 2024 Covid Booster Campaign')}}
             </dd>
             <dd class="nhsuk-summary-list__actions">
               <a href="name?change=name">
@@ -45,12 +45,43 @@
             </dd>
           </div>
 
+
           <div class="nhsuk-summary-list__row">
             <dt class="nhsuk-summary-list__key">
-              Campaign dates
+              Campaign type
             </dt>
             <dd class="nhsuk-summary-list__value">
-              {{ data['fromDate']|formatDate | default("Mon 29 Apr 2024") }} - {{ data['toDate']|formatDate | default("Sun 12 May 2024")}}
+              {{ data['campaign-type']|default("Vaccination") }}
+            </dd>
+            <dd class="nhsuk-summary-list__actions">
+              <a href="campaign-type?change=type">
+                Change<span class="nhsuk-u-visually-hidden"> campaign-type</span>
+              </a>
+            </dd>
+          </div>
+
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">
+              Campaign target
+            </dt>
+            <dd class="nhsuk-summary-list__value">
+              {{ data['campaign-target'] |default("COVID-19") }}
+            </dd>
+            <dd class="nhsuk-summary-list__actions">
+              <a href="campaign-type?change=target">
+                Change<span class="nhsuk-u-visually-hidden"> campaign-target</span>
+              </a>
+            </dd>
+          </div>
+
+
+
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">
+              Start date
+            </dt>
+            <dd class="nhsuk-summary-list__value">
+              {{ data['fromDate']|formatDate | default("Mon 29 Apr 2024") }}
             </dd>
             <dd class="nhsuk-summary-list__actions">
               <a href="dates?change=dates">
@@ -59,13 +90,25 @@
             </dd>
           </div>
 
+          <div class="nhsuk-summary-list__row">
+            <dt class="nhsuk-summary-list__key">
+              End date
+            </dt>
+            <dd class="nhsuk-summary-list__value">{{ data['toDate']|formatDate | default("Sun 12 May 2024")}}            </dd>
+            <dd class="nhsuk-summary-list__actions">
+              <a href="dates?change=dates">
+                Change<span class="nhsuk-u-visually-hidden"> dates</span>
+              </a>
+            </dd>
+          </div>
 
         </dl>
 
+        <p class="nhsuk-body">If you are happy with the details of the campaign, proceed to set-up.</p>
 
         {{ button({
           href: "task-list?progress=true",
-          text: "Save and continue"
+          text: "Create and proceed to set-up"
         }) }}
     </div>
   </div>

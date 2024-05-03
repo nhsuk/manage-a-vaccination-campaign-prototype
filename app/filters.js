@@ -13,6 +13,8 @@ module.exports = function (env) { /* eslint-disable-line no-unused-vars */
     return moment(string).format("ddd DD MMM YYYY");
   }
 
+
+
   filters.lastUpdated = string => {
     return moment().format("dddd DD MMMM YYYY");
   }
