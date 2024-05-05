@@ -1,0 +1,235 @@
+{% set pagetitle ="Add a filter" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+
+  .js-signout {
+    text-align: right;
+    font-size: 16px;
+    font-family: 'proxima_nova', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    z-index: 60;
+    clear: none;
+    background: transparent;
+    border-bottom: 1px solid #bfc1c3;
+    vertical-align: top;
+    padding-bottom: 20px;
+    font-size: 17px;
+
+  }
+
+
+
+  .nav {
+    display: inline-block;
+    list-style-type: none;
+    vertical-align: top;
+    text-align: left;
+    margin: 0;
+    font-size: 17px;
+
+  }
+
+  .nav, li, p {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 17px;
+  }
+
+  input:checked  {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background: white;
+    height: 20px;
+    width: 20px;
+    border: 2px solid black;
+    color: black;
+  }
+
+  input:after {
+    content:"";
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    width: 15%;
+    height: 20%;
+    border: 5px solid #000000;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    display: none;
+  }
+
+  input:checked:after {
+    display: block;
+  }
+
+</style>
+
+
+<form action="add-filtermoj" method="post">
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+    <h1 class="nhsuk-heading-l">COVID-19 U16 Immunosuppressed</h1>
+    <ul class="nav">
+        <fieldset class="nhsuk-fieldset">
+          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--xs">
+            <label class="nhsuk-fieldset__heading">
+              Apply filter to cohort
+            </label>
+          </legend>
+          <li style="margin-right:10px">
+          <div class="nhsuk-form-group">
+              <div class="nhsuk-radios nhsuk-radios--inline">
+                <div class="nhsuk-radios__item">
+
+
+                  <input class="nhsuk-radios__input" id="includeExclude-1" name="includeExclude" type="radio" value="Include">
+                  <label class="nhsuk-label nhsuk-radios__label" for="example-1">
+                    Include
+                  </label>
+                </div>
+                <div class="nhsuk-radios__item">
+                  <input class="nhsuk-radios__input" id="includeExclude-2" name="includeExclude" type="radio" value="Exclude">
+                  <label class="nhsuk-label nhsuk-radios__label" for="example-2">
+                    Exclude
+                  </label>
+                </div>
+              </div>
+          </div>
+          </li>
+
+          <li style="margin-left:60px;margin-right:10px">
+          <div class="nhsuk-form-group">
+
+            <p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
+
+
+          </div>
+          </li>
+
+          <li style="margin-left:40px;margin-right:10px">
+          <div class="nhsuk-form-group">
+          <label class="nhsuk-label" for="attrib">
+                Person attribute
+              </label>
+              <select  class="nhsuk-select" id="attrib" name="attrib">
+                <option disabled selected value="Select">Select</option>
+                <option value="Age">Age</option>
+                <option value="Given vaccine">Given vaccine</option>
+                <option value="Location">Location</option>
+              </select>
+          </div>
+          </li>
+          <li style="margin-right:10px">
+          <div class="nhsuk-form-group">
+              <label  class="nhsuk-label" for="operator">
+                Operator
+              </label>
+              <select  class="nhsuk-select" id="operator" name="operator">
+                <option disabled selected value="Select">Select</option>
+                <option value="=">=</option>
+                <option value=">=">></option>
+                <option value=">">>=</option>
+                <option value=">"><</option>
+                <option value=">=">=<</option>
+                <option value="range">range</option>
+              </select>
+          </div>
+        </li>
+          <li>
+            <div class="nhsuk-form-group">
+              <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="value">
+                  Value
+                </label>
+                <div class="nhsuk-input__wrapper">
+                  <input class="nhsuk-input nhsuk-input--width-3" id="value" name="value" type="text">
+                  <div class="nhsuk-input__suffix" aria-hidden="true">years</div>
+                </div>
+              </div>
+          </div>
+          </li>
+        </fieldset>
+      </ul>
+
+    </div>
+  </div>
+  <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
+  Save and continue
+</button>
+
+<ul class="nhsuk-grid-column-one-quarter nhsuk-grid-row nhsuk-card-group ">
+  <li class="nhsuk-card-group__item">
+
+    <div class="nhsuk-card nhsuk-card--clickable">
+      <div class="nhsuk-card__content">
+        <p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
+
+      </div>
+    </div>
+
+  </li>
+
+  <li class="nhsuk-card-group__item">
+
+    <div class="nhsuk-card nhsuk-card--clickable">
+      <div class="nhsuk-card__content">
+        <p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
+
+      </div>
+    </div>
+
+  </li>
+</ul>
+
+</form>
+    <script>
+
+
+    function checkRadios() {
+                      var sCheck = [];
+
+
+                      var checks = document.getElementsByTagName('input');
+
+                      for (i = 0; i < checks.length; i++) {
+                        if (checks[i].type == 'radio' ) {
+                          console.log(checks[i].id)
+                            sCheck.push(checks[i].value, checks[i].name);
+                          }
+
+                          }
+    console.log(sCheck)
+                        }
+
+
+
+  </script>
+
+  {% endblock %}

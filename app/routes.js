@@ -8,7 +8,7 @@ var fs = require('fs');
 var path = require('path');
 var process = require('process');
 
-const filesArray = fs.readdirSync("./app/views/v003/")
+const filesArray = fs.readdirSync("./app/views/v004/")
 const workingD = process.cwd();
 
 

@@ -31,8 +31,8 @@
 {% endblock %}
 {% block content %}
 
-{% set latestVersion = 'v003' %}
-{% set v003HTML %}
+{% set latestVersion = 'v004' %}
+{% set v004HTML %}
 
 <h2 class="nhsuk-heading-l">Pages</h2>
 
@@ -69,7 +69,7 @@
       {% from 'button/macro.njk' import button %}
 
       {{ button({
-          "href": "v003/index",
+          "href": "v004/index",
           "text": "Launch prototype"
       }) }}
 {% set storedHTML %}
@@ -128,7 +128,7 @@
 {{ details({
   "classes": "nhsuk-expander",
   "text": latestVersion,
-  "HTML": v003HTML
+  "HTML": v004HTML
 }) }}
 
 
