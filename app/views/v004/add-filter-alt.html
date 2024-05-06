@@ -115,110 +115,67 @@
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
       <h1 class="nhsuk-heading-xl">Add a filter</h1>
-      <ul class="filterLine">
-        <fieldset class="nhsuk-fieldset">
-          <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-            <label class="nhsuk-fieldset__heading">
-              Filter {{ cohortsArray | default("COVID-19 vaccination for people aged 75 to 115 years old") }} to:
-            </label>
-          </legend>
-          <li style="margin-right:10px">
-            <div class="nhsuk-form-group">
-              <div class="nhsuk-radios">
-                <div class="nhsuk-radios__item">
-
-
-                  <input class="nhsuk-radios__input" id="includeExclude-1" name="includeExclude" type="radio" value="Include">
-                  <label class="nhsuk-label nhsuk-radios__label" for="example-1">
-                    Include only people
-                  </label>
-                </div>
-                <div class="nhsuk-radios__item">
-                  <input class="nhsuk-radios__input" id="includeExclude-2" name="includeExclude" type="radio" value="Exclude">
-                  <label class="nhsuk-label nhsuk-radios__label" for="example-2">
-                    Exclude all people
-                  </label>
-                </div>
-              </div>
-            </div>
-          </li>
-
-          <!-- <li style="margin-left:60px;margin-right:10px">
-          <div class="nhsuk-form-group">
-
-          <p class="nhsuk-body">These are the selected cohorts for the campaign.</p>
-
-
-        </div>
-      </li> -->
-
-      <li style="margin-left:40px;margin-right:10px">
-        <div class="nhsuk-form-group">
-          <label class="filterLabel nhsuk-label" for="personAttributeSelector">
-            Person attribute
-          </label>
-          <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
-            <option disabled selected value="Select">Select</option>
-            <option value="age">Age</option>
-            <option value="given-vaccine">Given vaccine</option>
-            <option value="location">Location</option>
-          </select>
-        </div>
-      </li>
-      <li style="margin-right:10px">
-        <div style="display:none" id ="operatorSelector" class="nhsuk-form-group">
-          <label  class="filterLabel nhsuk-label" for="operator">
-            Operator
-          </label>
-          <select  class="nhsuk-select" id="operatorOption" name="operatorOption">
-            <option disabled selected value="Select">Select</option>
-            <option value="=">=</option>
-            <option value=">=">></option>
-            <option value=">">>=</option>
-            <option value=">"><</option>
-            <option value=">=">=<</option>
-            <option value="between">between x and y</option>
-          </select>
-        </div>
-      </li>
-
-      <li>
-        <div style="display:none" id ="operatorValue1" class="nhsuk-form-group">
-          <div class="nhsuk-form-group">
-            <label class="filterLabel nhsuk-label" for="valueOne">
-              Value 1
-            </label>
-            <div class="nhsuk-input__wrapper">
-              <input class="nhsuk-input nhsuk-input--width-3" id="valueOne" name="valueOne" type="text">
-              <div class="nhsuk-input__suffix" aria-hidden="true">years</div>
-            </div>
-          </div>
-        </div>
-      </li>
-
-      <li>
-        <div style="display:none" id ="operatorValue2" class="nhsuk-form-group">
-          <div class="nhsuk-form-group">
-            <label class="filterLabel nhsuk-label" for="valueTwo">
-              Value 2
-            </label>
-            <div class="nhsuk-input__wrapper">
-              <input class="nhsuk-input nhsuk-input--width-3" id="valueTwo" name="valueTwo" type="text">
-              <div class="nhsuk-input__suffix" aria-hidden="true">years</div>
-            </div>
-          </div>
-        </div>
-      </li>
 
 
 
-    </fieldset>
-  </ul>
+      {% from 'radios/macro.njk' import radios %}
+
+      {{ radios({
+        "idPrefix": "example-divider",
+        "name": "example-divider",
+        "fieldset": {
+          "legend": {
+            "text": "What attribute would you like to filter with?",
+            "classes": "nhsuk-fieldset__legend--m",
+            "isPageHeading": false
+          }
+        },
+        "items": [
+          {
+            "value": "Age",
+            "text": "Age",
+            "hint": {
+              "text": "Age hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "value": "Location",
+            "text": "Location",
+            "hint": {
+              "text": "Location hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "value": "recent-given-vaccine",
+            "text": "Recently given vaccine",
+            "hint": {
+              "text": "Given vaccine hint text lorem ipsum dolor sit amet."
+            }
+          },
+          {
+            "divider": "or"
+          },
+          {
+            "value": "use-common-filter",
+            "text": "Pick a standard filter from a library",
+            "hint": {
+              "text": "Teaser for standard filters list hint text lorem ipsum dolor sit amet."
+            }
+          }
+        ]
+      }) }}
+
+
+
+
+
+
+
 
 </div>
 </div>
 <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
-  Save filter
+  Continue
 </button>
 
 <!-- <ul class="nhsuk-grid-column-one-quarter nhsuk-grid-row nhsuk-card-group ">

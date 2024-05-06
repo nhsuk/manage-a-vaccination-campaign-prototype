@@ -1,0 +1,98 @@
+{% set pagetitle ="Summary of selected cohorts" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-two-thirds">
+    <!-- <span class="nhsuk-caption-l nhsuk-u-padding-bottom-1">Create a new campaign</span> -->
+    <h1>
+      Summary of your cohort filters
+    </h1>
+
+
+    <p class="nhsuk-body">These filters will be applied to your cohorts.</p>
+
+
+
+
+
+
+
+    {% set filtersListArray = [] %}
+    {% set cohortsArray = [] %}
+
+    {% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
+    {% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
+    {% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
+    {% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
+    {% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
+    {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
+
+
+    {% if (data['commonFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['commonFilters']) %} {% endif %}
+    {% if (data['ageFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['ageFilters']) %} {% endif %}
+    {% if (data['locationFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['locationFilters']) %} {% endif %}
+    {% if (data['allFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['allFilters']) %} {% endif %}
+
+
+
+    {% if cohortsArray.length > 0 %}
+    <h2 class="nhsuk-heading-xs nhsuk-u-margin-top-3 nhsuk-u-margin-bottom-0">{{ cohortsArray | truncate(75)|default('cohort') }}</h2>
+
+    {% if filtersListArray.length > 0 %}
+    {% for filters in filtersListArray %}
+    <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
+
+      <!-- <div class="nhsuk-summary-list__row"> -->
+
+      <dt class="nhsuk-summary-list__key">
+        Filter
+      </dt>
+      <dd class="nhsuk-summary-list__value">{{filters}}
+      </dd>
+      <dd class="nhsuk-summary-list__actions">
+        <a href="add-filter-library?repickCohorts=true">
+          Update filter<span class="nhsuk-u-visually-hidden"> update filter {{filters}}</span>
+        </a>
+      </dd>
+
+    </dl>
+
+
+
+    {% endfor %}
+    {% endif %}
+    {% endif %}
+
+
+
+
+  {{ button({
+    href: "task-list?filters=done",
+    text: "Save and continue"
+  }) }}
+</div>
+</div>
+
+{% endblock %}
