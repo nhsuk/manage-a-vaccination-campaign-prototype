@@ -1,4 +1,4 @@
-{% set pagetitle ="Add a filter" %}
+{% set pagetitle ="Apply suppressions" %}
 {% set versionNumber ="004" %}
 {% extends 'layout.html' %}
 {% block header %}
@@ -95,20 +95,13 @@
 
 </style>
 
+{% set commonSuppList = [["COVID-19 opt out","15 April 2024"],["Future COVID-19 booking","15 April 2024"]] %}
+{% set suppressedGroups = [["Care Home residents","15 April 2024"],["Detained Estate","15 April 2024"],["DPHC / DMS Military staff","15 April 2024"]] %}
+{% set ageFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"]] %}
+{% set locationFilterList = [["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"]] %}
+{% set givenVaccineFilterList = [["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
+{% set allFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"],["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
 
-{% set cohortsArray = [] %}
-
-{% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
-{% if (data['covidCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['covidCohorts']) %} {% endif %}
-{% if (data['fluCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['fluCohorts']) %} {% endif %}
-{% if (data['under16Cohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['under16Cohorts']) %} {% endif %}
-{% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
-{% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
-
-{% set cohortsArray = cohortsArray.concat("COVID-19 vaccination for people aged 75 to 115 years old") %}
-
-{% if cohortsArray.length > 0 %}
-{% endif %}
 
 
 <!-- <form action="summary-filters" method="post"> -->
@@ -116,7 +109,7 @@
 <form action="/pickFilter" method="post">
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-xl">Add a new filter</h1>
+      <h1 class="nhsuk-heading-xl">Apply suppressions to your cohorts</h1>
 
 
 

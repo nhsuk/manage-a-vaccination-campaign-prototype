@@ -45,6 +45,7 @@
         text-decoration: none;
         overflow-wrap: break-word;
         font-weight: bold;
+        font-size:17px;
       }
 
       .govuk-tag--gris {
@@ -109,6 +110,15 @@
         margin-top: 5px;
       }
 
+      .nhsuk-body {
+        font-size:17px;
+        margin-top:3px;
+        margin-bottom:2px;
+
+      }
+
+
+
     </style>
 
 
@@ -117,7 +127,7 @@
     <ul class="govuk-task-list">
       <li class="govuk-task-list__item govuk-task-list__item--with-link">
         <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-1-status">
+          <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-1-status">
             Update campaign name, start and end dates
 
 
@@ -135,7 +145,7 @@
       </li>
       <li class="govuk-task-list__item govuk-task-list__item--with-link">
         <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-2-status">
+          <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="#" aria-describedby="company-details-2-status">
             Change campaign type and target
           </a>
         </div>
@@ -148,7 +158,6 @@
       </ul>
 
 
-
       {% set cohortsArray = [] %}
 
       {% if (data['newCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['newCohorts']) %} {% endif %}
@@ -158,102 +167,108 @@
       {% if (data['immunoCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['immunoCohorts']) %} {% endif %}
       {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
 
+{% macro newIterationTasklist(title="",count=" ") %}
+<h2 style="border-bottom: 0.5px solid lightgrey;" class="nhsuk-heading-m nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}} #{{ count |int }}</h2>
+{% endmacro %}
 
-{% if cohortsArray.length > 0 %}
+{% macro newHeading(title="") %}
+<h2  class="nhsuk-heading-xs nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}}</h2>
+{% endmacro %}
+
+{% macro taskListItem(title="'title'", link='#', status='', completed='', cantStart='' ) %}
+  <li style="border-top: 1px solid lightgrey;" class="govuk-task-list__item govuk-task-list__item:first-child govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="{{link}}" aria-describedby="company-details-2-status">
+        {{title}}
+      </a>
+    </div>
+    <div class="govuk-task-list__status" id="company-details-2-status">
+      <strong class="govuk-tag nhsuk-tag--white">
+        {{status}}
+      </strong>
+    </div>
+  </li>
+
+
+
+
+{% endmacro %}
+
+
+
+
+    {% set filtersListArray = [] %}
+
+    {% if (data['commonFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['commonFilters']) %} {% endif %}
+    {% if (data['ageFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['ageFilters']) %} {% endif %}
+    {% if (data['locationFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['locationFilters']) %} {% endif %}
+    {% if (data['allFilters'].length > 0) %} {% set filtersListArray = filtersListArray.concat(data['allFilters']) %} {% endif %}
+
+
+
+  {{ newIterationTasklist('Iteration ','1')}}
+  {{ newHeading('Selected cohorts')}}
+
+  <ul class="govuk-task-list">
+
+  {% if data['selectCohorts'] !== 'done' %}
+  {{ taskListItem(title="Select your campaign cohorts",link="select-cohorts",status="Not started") }}
+  {% else %}
+
 
 
     {% for items in cohortsArray %}
+    <ul class="nhsuk-list nhsuk-body">
 
-{{ items | truncate(75) }}
-
-{% endfor %}
-
-{% endif %}
+        <li>  {{ items | truncate(75) }}</li>
 
 
-
-      <h2 class="nhsuk-heading-xs nhsuk-u-margin-top-0 nhsuk-u-margin-bottom-0">Campaign configuration</h2>
-
-      <ul class="govuk-task-list">
-
-
-      <li class="govuk-task-list__item govuk-task-list__item--with-link">
-        <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="select-cohorts" aria-describedby="company-details-3-hint company-details-3-status">
-            Add a new iteration
-          </a>
-
-        </div>
-        <div class="govuk-task-list__status" id="company-details-3-status">
-          <strong class="govuk-tag nhsuk-tag--grey">
-            Not started
-          </strong>
-        </div>
-      </li>
     </ul>
-      <!-- <li class="govuk-task-list__item govuk-task-list__item--with-link">
-        <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="select-cohorts" aria-describedby="company-details-3-hint company-details-3-status">
-            Select campaign cohorts
-          </a>
+    {% endfor %}
 
-        </div>
-        <div class="govuk-task-list__status" id="company-details-3-status">
-          <strong class="govuk-tag nhsuk-tag--grey">
-            Not started
-          </strong>
-        </div>
-      </li>
+    {{ taskListItem(title="Edit cohorts",link="select-cohorts",status="Optional") }}
+
+    {% if data['filters'] !== 'done'  %}
+    {{ taskListItem(title="Apply filters to your cohorts",link="add-filter-alt",status="Not started") }}
+    {% else %}
+
+    {% for items in cohortsArray %}
+    <ul class="nhsuk-list nhsuk-body">
+
+        <li>  {{ items | truncate(75) }}</li>
 
 
-      <li class="govuk-task-list__item govuk-task-list__item--with-link">
-        <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-3-hint company-details-3-status">
-            Apply a filter
-          </a>
-          <div id="company-details-3-hint" class="govuk-task-list__hint">
-            Include 5 years of the company’s relevant financial information.
-          </div>
-        </div>
-        <div class="govuk-task-list__status" id="company-details-3-status">
-          <strong class="govuk-tag nhsuk-tag--grey">
-            Not started
-          </strong>
-        </div>
-      </li>
+    </ul>
+    {% endfor %}
 
-      <li class="govuk-task-list__item govuk-task-list__item--with-link">
-        <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-4-status">
-            Apply a suppression
-          </a>
-        </div>
-        <div class="govuk-task-list__status" id="company-details-4-status">
-          <strong class="govuk-tag">
-            Cannot start
-          </strong>
-        </div>
-      </li>
+        {{ taskListItem(title="Edit filters",link="add-filter-alt",status="Optional") }}
+    {% endif %}
+    {{ taskListItem(title="Apply suppressions to your cohorts",link="apply-suppressions",status="Not started") }}
 
-      <li class="govuk-task-list__item govuk-task-list__item--with-link">
-        <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="company-details-5-status">
-            References
-          </a>
-        </div>
-        <div class="govuk-task-list__status" id="company-details-5-status">
-          <strong class="govuk-tag">
-            Cannot start
-          </strong>
-        </div>
-      </li> -->
+  {% endif %}
 
+  <!-- {{ taskListItem(title="Add filters",link="#",status="Cannot start") }} -->
+
+
+
+  </ul>
+
+
+
+</div>
 
 
   </div>
 
 
-</div>
+<script>
+  function showDiv(div1) {
+    document.getElementById(div1).style.display = 'block';
+  }
 
+  function hideDiv(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+</script>
 
 {% endblock %}

@@ -222,15 +222,15 @@
       {% from 'details/macro.njk' import details %}
 
 
-      {% if data['ageFilterList'].length > 0 %}
+      {% if data['ageFilters'].length > 0 %}
       {% set ageOpen = 'true' %}
       {% endif %}
 
-      {% if data['locationFilterList'].length > 0 %}
+      {% if data['locationFilters'].length > 0 %}
       {% set locationOpen = 'true' %}
       {% endif %}
 
-      {% if data['allFilterList'].length > 0 %}
+      {% if data['allFilters'].length > 0 %}
       {% set allOpen = 'true' %}
       {% endif %}
 
@@ -261,7 +261,7 @@
 
 
       <button class="nhsuk-button" data-module="nhsuk-button" type="submit">
-        Continue
+        Save and continue
       </button>
 
     </div>

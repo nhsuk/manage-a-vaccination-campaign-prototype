@@ -55,7 +55,7 @@
     </ul>
     {% endfor %} -->
   {% for item in cohortsArray %}
-    <dl class="nhsuk-summary-list nhsuk-summary-list--no-border">
+    <dl class="nhsuk-summary-list">
 
       <!-- <div class="nhsuk-summary-list__row"> -->
 
@@ -86,7 +86,7 @@
 
 
     {{ button({
-      href: "task-list?selectCohorts=done",
+      href: "task-list-govuk?selectCohorts=done",
       text: "Save and continue"
     }) }}
   </div>

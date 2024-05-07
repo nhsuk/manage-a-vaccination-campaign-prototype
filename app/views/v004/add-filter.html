@@ -49,6 +49,7 @@
     vertical-align: top;
     text-align: left;
     margin: 0;
+    float:left;
     font-size: 17px;
 
   }
@@ -57,11 +58,18 @@
     font-size: 17px;
   }
 
-  .filterLine, li, p {
+  .filterLine, li {
     display: inline-block;
     vertical-align: bottom;
     font-size: 17px;
   }
+
+.newCR {
+display: block;
+vertical-align: bottom;
+font-size: 17px;
+
+}
 
   input:checked  {
     cursor: pointer;
@@ -93,6 +101,14 @@
     display: block;
   }
 
+  li {
+    font-size:17px;
+    margin-top:3px;
+    margin-bottom:2px;
+
+  }
+
+
 </style>
 
 
@@ -111,37 +127,27 @@
 {% endif %}
 
 
-<form action="summary-filters" method="post">
   <div class="nhsuk-grid-row">
     <div class="nhsuk-grid-column-full">
-      <h1 class="nhsuk-heading-xl">Add a filter</h1>
-      <ul class="filterLine">
+
+      <h1 class="nhsuk-heading-xl">Add a filter by {{ data['sel']|lower|replace('-',' ')}}</h1>
+      <p class="nhsuk-body">Filter your cohorts:</p>
+
+      <input type="hidden" id="defaultSelect" value="{{ data['sel'] }}">
+      {% if cohortsArray.length > 0 %}
+      {% for selected in cohortsArray %}
+      <ul class="nhsuk-list">
+        <li>{{selected}}</li>
+      </ul>
+      {% endfor %}
+      {% endif %}
+      <form action="summary-filters" method="post">
+
+      <ul class="nhsuk-list filterLine">
         <fieldset class="nhsuk-fieldset">
           <legend class="nhsuk-fieldset__legend nhsuk-fieldset__legend--m">
-            <label class="nhsuk-fieldset__heading">
-              Filter {{ cohortsArray | default("COVID-19 vaccination for people aged 75 to 115 years old") }} to:
-            </label>
           </legend>
-          <li style="margin-right:10px">
-            <div class="nhsuk-form-group">
-              <div class="nhsuk-radios">
-                <div class="nhsuk-radios__item">
 
-
-                  <input class="nhsuk-radios__input" id="includeExclude-1" name="includeExclude" type="radio" value="Include">
-                  <label class="nhsuk-label nhsuk-radios__label" for="example-1">
-                    Include only people
-                  </label>
-                </div>
-                <div class="nhsuk-radios__item">
-                  <input class="nhsuk-radios__input" id="includeExclude-2" name="includeExclude" type="radio" value="Exclude">
-                  <label class="nhsuk-label nhsuk-radios__label" for="example-2">
-                    Exclude all people
-                  </label>
-                </div>
-              </div>
-            </div>
-          </li>
 
           <!-- <li style="margin-left:60px;margin-right:10px">
           <div class="nhsuk-form-group">
@@ -152,16 +158,21 @@
         </div>
       </li> -->
 
-      <li style="margin-left:40px;margin-right:10px">
+
+
+
+
+
+      <li style="left:0;margin-left:0px;margin-right:10px">
         <div class="nhsuk-form-group">
           <label class="filterLabel nhsuk-label" for="personAttributeSelector">
             Person attribute
           </label>
           <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
-            <option disabled selected value="Select">Select</option>
-            <option value="age">Age</option>
-            <option value="given-vaccine">Given vaccine</option>
-            <option value="location">Location</option>
+            <option disabled selected value="--">Select</option>
+            <option id="attr1" value="age">Age</option>
+            <option id="attr2" value="given-vaccine">Given vaccine</option>
+            <option id="attr3" value="location">Location</option>
           </select>
         </div>
       </li>
@@ -210,84 +221,200 @@
         </div>
       </li>
 
+      <li class="newCR" style="margin-right:0px">
+        <div  style="display:none" id ="incExcl" class="nhsuk-form-group">
+          <div  class="nhsuk-radios">
+            <div class="nhsuk-radios__item">
 
 
+              <input class="nhsuk-radios__input" id="includeExclude-1" name="includeExclude" type="radio" value="Include">
+              <label class="nhsuk-label nhsuk-radios__label" for="example-1">
+                Include only the matches
+              </label>
+            </div>
+            <div class="nhsuk-radios__item">
+              <input class="nhsuk-radios__input" id="includeExclude-2" name="includeExclude" type="radio" value="Exclude">
+              <label class="nhsuk-label nhsuk-radios__label" for="example-2">
+                Exclude all the matches
+              </label>
+            </div>
+          </div>
+        </div>
+      </li>
+      <button style="display:none" id="saveBut" class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        Save filter
+      </button>
+      <!-- {{ button({
+        "id":"saveBut",
+        text: "Save filter"
+      }) }} -->
     </fieldset>
   </ul>
 
-</div>
-</div>
-<button class="nhsuk-button" data-module="nhsuk-button" type="submit">
-  Save filter
-</button>
 
-<!-- <ul class="nhsuk-grid-column-one-quarter nhsuk-grid-row nhsuk-card-group ">
-<li class="nhsuk-card-group__item">
-
-<div class="nhsuk-card nhsuk-card--clickable">
-<div class="nhsuk-card__content">
-<p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
-
-</div>
-</div>
-
-</li>
-
-<li class="nhsuk-card-group__item">
-
-<div class="nhsuk-card nhsuk-card--clickable">
-<div class="nhsuk-card__content">
-<p class="nhsuk-heading-xl nhsuk-u-font-size-64 nhsuk-u-margin-bottom-1">91 <span class="nhsuk-u-visually-hidden">Applicants</span></p><a href="#" class="nhsuk-card__link nhsuk-u-font-weight-normal nhsuk-u-font-size-19 nhsuk-link--no-visited-state">Applicants</a>
-
-</div>
-</div>
-
-</li>
-</ul> -->
 
 </form>
+
+
+</div>
+
+
+
+</div>
+
+
 <script>
+
+  // var att = req.session.data['selectedAttrib'];
+  //   const newFilter = req.session.data['personAttributeSelector'];
+  // console.log(newFilter)
+  //   if (newFilter.length < 1){
+  //   } else {
+  //     const personAttributeSelector = document.getElementById("personAttributeSelector");
+  //     personAttributeSelector.option.value.selected = newFilter;
+  //   }
+  // }
+
+  function selectElement(id, valueToSelect) {
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+    // element.dispatchEvent(new Event('change'))
+  }
+
+  // const attr1 = document.getElementById("attr1");
+  // const attr2 = document.getElementById("attr2");
+  // const attr3 = document.getElementById("attr3");
+
+
+
   const personAttributeSelector = document.getElementById("personAttributeSelector");
-
-
   const operatorSelector = document.getElementById("filterAttrib");
-
   const operatorOption = document.getElementById("operatorOption");
   const operatorValue1 = document.getElementById("operatorValue1");
+  const incExcl = document.getElementById("incExcl");
   const operatorValue2 = document.getElementById("operatorValue2");
+  const defSel = document.getElementById("defaultSelect").value;
+  const newDefault = document.getElementById("attr2");
+  const saveB = document.getElementById("saveBut");
+
+
+
+  // console.log(newDefault.value)
+console.log(defSel)
+  // addToReasonSelector(newDefault.value)
+
+  // selectElement('personAttributeSelector', newDefault);
+  // console.log({{sel}})
+  switch (defSel) {
+    case "age":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    attr1.selected = "true";
+    showValue2('operatorSelector')
+    showValue2('operatorValue1')
+
+
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "given-vaccine":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    attr2.selected = "true";
+    showValue2('operatorSelector')
+    showValue2('operatorValue1')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+    case "location":
+    // console.log(attr1.value)
+    // attr2.innerHTML = newDefault.value;
+    attr3.selected = "true";
+    showValue2('operatorSelector')
+    showValue2('operatorValue1')
+    // personAttributeSelector.appendChild(defSel.value).selected = "true";
+    break;
+  }
+
+
+  function addToReasonSelector(fred) {
+    // console.log(fred)
+    var newOption = document.getElementById("attr2")
+    // console.log(newOption.innerHTML)
+
+    newOption.innerHTML = "sdfsdf";
+    newDefault.appendChild(newOption).selected = "true";
+    newDefault.focus();
+
+  }
+
+
+
 
 
   personAttributeSelector.addEventListener("click", () => {
     console.log("Person attribute filter used")
 
+
+
     personAttributeSelector.addEventListener("change", () => {
-      if (personAttributeSelector.value == "between") {
-        showValue2('operatorValue2')
-        console.log("operator between")
-      } else {
-        hideValue2('operatorValue2')
-        console.log("operator not between")
-      }
+      // if (personAttributeSelector.value == "age") {
+        showValue2('operatorSelector')
+        showValue2('operatorValue1')
+        // console.log("operator between")
+      // } else {
+        // hideValue2('operatorValue2')
+        // console.log("operator not between")
+      // }
     }, { once: true })
   });
 
 
 
   operatorOption.addEventListener("click", () => {
-    console.log("Operator selector used")
+    // console.log("Operator selector used")
 
     operatorOption.addEventListener("change", () => {
       if (operatorOption.value == "between") {
         showValue2('operatorValue2')
-        console.log("operator between")
+        // console.log("operator between")
       } else {
         hideValue2('operatorValue2')
-        console.log("operator not between")
+        // console.log("operator not between")
       }
     }, { once: true })
   });
 
+  operatorValue1.addEventListener("click", () => {
+    // console.log("Operator selector used")
 
+    operatorValue1.addEventListener("change", () => {
+      if (operatorOption.value == "between") {
+        showValue2('operatorValue2')
+        // console.log("operator between")
+      } else {
+        hideValue2('operatorValue2')
+        showValue2('incExcl')
+          showValue2('saveBut')
+        // console.log("operator not between")
+      }
+    }, { once: true })
+  });
+
+  operatorValue2.addEventListener("click", () => {
+    // console.log("Operator selector used")
+    showValue2('incExcl')
+    showValue2('saveBut')
+
+
+    operatorValue2.addEventListener("change", () => {
+        showValue2('incExcl')
+    }, { once: true })
+  });
+
+
+  incExcl.addEventListener("click", () => {
+    // console.log("Operator selector used")
+    showValue2('saveB')
+  });
 
 
   function showValue2(div1) {
@@ -305,11 +432,11 @@
     var checks = document.getElementsByTagName('input');
     for (i = 0; i < checks.length; i++) {
       if (checks[i].type == 'radio' ) {
-        console.log(checks[i].id)
+        // console.log(checks[i].id)
         sCheck.push(checks[i].value, checks[i].name);
       }
     }
-    console.log(sCheck)
+    // console.log(sCheck)
   }
 
 </script>
@@ -318,18 +445,18 @@
 
 
 selector.addEventListener("click", () => {
-// if default value is changed
+  // if default value is changed
   selector.addEventListener("change", () => {
-  // if value switched by client
+    // if value switched by client
     switch (selector.value) {
       case "add":
       //do somthing with  , "add" value
-        result.innerHTML = selector.value;
-        break;  // then take break
+      result.innerHTML = selector.value;
+      break;  // then take break
       case "remove":
       //do somthing with  , "remove" value
-        result.innerHTML = selector.value;
-        break; // then take break
+      result.innerHTML = selector.value;
+      break; // then take break
     }
   });
 });

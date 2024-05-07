@@ -62,4 +62,27 @@ router.get('/', (req, res) => {
 
 })
 
+
+router.post("/reservist1-handler", function (req, res) {
+
+        if (req.session.data['see-candidate'] == "yes") {
+                res.redirect('/reserve-list-01/step-2')
+        } else {
+                res.redirect('/reserve-list-01/task-list')
+        }
+})
+
+router.post('/pickFilter', function (req, res) {
+    var att = req.session.data['selectedAttrib'];
+    console.log(att)
+  if (att == "Pick a standard filter from a library"){
+    res.redirect('v004/add-filter-library')
+  } else {
+    res.redirect('v004/add-filter?sel='+att)
+
+    // res.redirect("v004/add-filter?newVal="+att);
+
+  }
+})
+
 module.exports = router;

@@ -22,14 +22,6 @@
 
 {% block content %}
 
-<style>
-  .nhsuk-body {
-    font-size:17px;
-    margin-top:3px;
-    margin-bottom:2px;
-
-  }
-</style>
 
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-two-thirds">
@@ -38,9 +30,32 @@
     </h1>
 
 
+{{condemned}}
 
+    {% from 'radios/macro.njk' import radios %}
 
-
+    {{ radios({
+      "idPrefix": "example-inline",
+      "name": "example-inline",
+      "classes": "nhsuk-radios--inline",
+      "fieldset": {
+        "legend": {
+          "text": "Are you sure you want to delete {{condemned}}?",
+          "classes": "nhsuk-fieldset__legend--l",
+          "isPageHeading": true
+        }
+      },
+      "items": [
+        {
+          "value": "yes",
+          "text": "Yes"
+        },
+        {
+          "value": "no",
+          "text": "No"
+        }
+      ]
+    }) }}
 
 
 
@@ -68,7 +83,7 @@
 
     <p class="nhsuk-body">These filters will be applied to your cohorts:</p>
     {% for selected in cohortsArray %}
-    <ul class="nhsuk-list nhsuk-list--bullet">
+    <ul class="nhsuk-list">
       <li>{{selected}}</li>
     </ul>
     {% endfor %}
@@ -95,7 +110,7 @@
             </li> -->
 
             <li class="nhsuk-summary-list__actions-list-item">
-              <a href="add-filter-library?repickFilters=true">Edit<span class="nhsuk-u-visually-hidden"> edit {{filters}}</span></a>
+              <a href="add-filter-library?filteredit=library">Edit<span class="nhsuk-u-visually-hidden"> edit {{filters}}</span></a>
             </li>
             <li class="nhsuk-summary-list__actions-list-item">
               <a href="summary-filters-delete?condemned={{filters}}">Delete<span class="nhsuk-u-visually-hidden"> delete {{filters}}</span></a>
@@ -117,7 +132,7 @@
     </div>
 
     {{ button({
-      href: "task-list-govuk?filters=done",
+      href: "task-list?filters=done",
       text: "Save and continue"
     }) }}
   </div>
