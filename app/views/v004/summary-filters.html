@@ -34,10 +34,8 @@
 <div class="nhsuk-grid-row">
   <div class="nhsuk-grid-column-two-thirds">
     <h1>
-      Summary of your cohort filters
+      Summary of your filters and suppressions
     </h1>
-
-
 
 
 
@@ -66,7 +64,7 @@
 
     {% if cohortsArray.length > 0 %}
 
-    <p class="nhsuk-body">These filters will be applied to your cohorts:</p>
+    <p class="nhsuk-body-m">These filters will be applied to your cohorts:</p>
     {% for selected in cohortsArray %}
     <ul class="nhsuk-list nhsuk-list--bullet">
       <li>{{selected}}</li>
@@ -103,9 +101,34 @@
           </ul>
         </dd>
       </div>
+      {% endfor %}
+      {% endif %}
+      {% if data['suppCollect'].length > 0 %}
+      {% for thing in data['suppCollect'] %}
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">
+          Suppression
+        </dt>
+        <dd class="nhsuk-summary-list__value">{{ thing }}
+        </dd>
+        <dd class="nhsuk-summary-list__actions">
+          <ul class="nhsuk-summary-list__actions-list">
+            <!-- <li class="nhsuk-summary-list__actions-list-item">
+              <a href="#">On<span class="nhsuk-u-visually-hidden"> filter on {{filters}}</span></a>
+            </li> -->
+
+            <li class="nhsuk-summary-list__actions-list-item">
+              <a href="add-filter-library?repickFilters=true">Edit<span class="nhsuk-u-visually-hidden"> edit {{filters}}</span></a>
+            </li>
+            <li class="nhsuk-summary-list__actions-list-item">
+              <a href="summary-filters-delete?condemned={{filters}}">Delete<span class="nhsuk-u-visually-hidden"> delete {{filters}}</span></a>
+            </li>
+          </ul>
+        </dd>
+      </div>
+      {% endfor %}    {% endif %}
     </dl>
-    {% endfor %}
-    {% endif %}
+
 
     <div>
 

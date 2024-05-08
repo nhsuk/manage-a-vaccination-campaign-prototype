@@ -105,7 +105,9 @@
 {% set allFilterList = [["Under 5 years","15 April 2024"],["Over 5 years","15 April 2024"],["Under 16 years","15 April 2024"],["Over 16 years","15 April 2024"],["Under 75 years","15 April 2024"],["Over 75 years","15 April 2024"],["Under 85 years","15 April 2024"],["Over 85 years","15 April 2024"],["Under 115 years","15 April 2024"],["Over 114 years","15 April 2024"],["London Integrated Care Boards only","15 April 2024"],["All Integrated Care Boards excluding London","15 April 2024"],["East of England Region only","15 April 2024"],["London Region only","15 April 2024"],["Midlands Region only","15 April 2024"],["North East and Yorkshire Region only","15 April 2024"],["North West Region only","15 April 2024"],["South East Region only","15 April 2024"],["South West Region only","15 April 2024"],["Received vaccine in the last 90 days","15 April 2024"],["Received vaccine in the last 180 days","15 April 2024"],["Received vaccine greater than a year ago","15 April 2024"],["Received vaccine greater than 2 years ago","15 April 2024"],["No record of vaccine given","15 April 2024"]] %}
 
 
-{% set covidSuppressionCollection = [["User has opted out of receiving COVID-19 messages","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["Care Home Residents","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["Detained Estate","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["DPHC/DMS Military staff","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"],["Future COVID-19 vaccine booking","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. ","15 April 2024"]] %}
+{% set covidSuppressionCollection = [["User has opted out of receiving COVID-19 messages","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. Quisque porttitor, arcu eget consequat viverra, libero eros vehicula tortor, a viverra orci erat ut ligula.","15 April 2024"],["Care Home Residents","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. Quisque porttitor, arcu eget consequat viverra, libero eros vehicula tortor, a viverra orci erat ut ligula.","15 April 2024"],["Detained Estate","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. Quisque porttitor, arcu eget consequat viverra, libero eros vehicula tortor, a viverra orci erat ut ligula.","15 April 2024"],["DPHC/DMS Military staff","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. Quisque porttitor, arcu eget consequat viverra, libero eros vehicula tortor, a viverra orci erat ut ligula.","15 April 2024"],["Future COVID-19 vaccine booking","Description lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque volutpat vehicula. Fusce non nisl a est accumsan iaculis. Quisque porttitor, arcu eget consequat viverra, libero eros vehicula tortor, a viverra orci erat ut ligula.","15 April 2024"]] %}
+
+
 
 
 
@@ -159,30 +161,30 @@
 
 
 
-{% for items,desc,date in covidSuppressionCollection %}
+      {% for items,desc,date in covidSuppressionCollection %}
 
-{{ checkboxes({
-  "idPrefix": "suppCollect",
-  "name": "suppCollect",
-  "fieldset": {
-    "legend": {
-      "text": "",
-      "classes": "nhsuk-fieldset__legend--l",
-      isPageHeading: false
-    }
-  },
-  "items": [
-  {
-    "value": items,
-    "text": items,
-    "hint": {
-      "text": desc+" ("+date+")"
-    },
-    checked: checked('suppCollect',items)
-  }
-  ]
-}) }}
-{% endfor %}
+      {{ checkboxes({
+        "idPrefix": "suppCollect",
+        "name": "suppCollect",
+        "fieldset": {
+          "legend": {
+            "text": "",
+            "classes": "nhsuk-fieldset__legend--l",
+            isPageHeading: false
+          }
+        },
+        "items": [
+        {
+          "value": items,
+          "text": items,
+          "hint": {
+            "text": desc+" ("+date+")"
+          },
+          checked: checked('suppCollect',items)
+        }
+        ]
+      }) }}
+      {% endfor %}
       {% endset %}
 
 

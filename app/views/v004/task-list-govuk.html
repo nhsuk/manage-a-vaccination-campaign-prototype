@@ -21,7 +21,7 @@
   <div class="nhsuk-grid-column-three-quarters">
 
     <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
-    <h1 class="nhsuk-heading-l">{{ data['name'] }}
+    <h1 class="nhsuk-heading-xl">{{ data['name'] }}
 
       {% if data['fromDate']|length > 0 %}
       <span class="nhsuk-body-m nhsuk-u-padding-top-3">{{ data['fromDate']|formatDate|default("29 April") }} - {{ data['toDate']|formatDate|default("12 May")}}</span>
@@ -46,6 +46,7 @@
         overflow-wrap: break-word;
         font-weight: bold;
         font-size:17px;
+        font-weight:normal;
       }
 
       .govuk-tag--gris {
@@ -57,7 +58,8 @@
 }
 
       .govuk-task-list {
-        margin-top: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
         padding: 0;
         list-style-type: none;
       }
@@ -67,14 +69,14 @@
         position: relative;
         width: 100%;
         margin-bottom: 0;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        border-bottom: 1px solid lightgrey;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-bottom: 0.5px solid lightgrey;
         font-size:17px;
       }
 
       .govuk-task-list__item:first-child {
-        border-top: 1px solid lightgrey;
+        border-top: 0.5px solid lightgrey;
       }
 
       .govuk-task-list__item--with-link:hover {
@@ -135,7 +137,7 @@
           </a>
         </div>
         <div class="govuk-task-list__status" id="company-details-2-status">
-          <strong class="govuk-tag nhsuk-tag--white">
+          <strong class="govuk-tag">
             Optional
           </strong>
         </div>
@@ -150,7 +152,7 @@
           </a>
         </div>
         <div class="govuk-task-list__status" id="company-details-2-status">
-          <strong class="govuk-tag nhsuk-tag--white">
+          <strong class="govuk-tag">
             Optional
           </strong>
         </div>
@@ -168,33 +170,35 @@
       {% if (data['allCohorts'].length > 0) %} {% set cohortsArray = cohortsArray.concat(data['allCohorts']) %} {% endif %}
 
 {% macro newIterationTasklist(title="",count=" ") %}
-<h2 style="border-bottom: 0.5px solid lightgrey;" class="nhsuk-heading-m nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}} #{{ count |int }}</h2>
+<h2 style=" background:white" class="nhsuk-heading-xs nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}} #{{ count |int }}</h2>
 {% endmacro %}
 
 {% macro newHeading(title="") %}
-<h2  class="nhsuk-heading-xs nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}}</h2>
+<h2 style="border-bottom: 1px solid blue; background:white;" class="nhsuk-heading-xs nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-0">{{title}}</h2>
 {% endmacro %}
 
-{% macro taskListItem(title="'title'", link='#', status='', completed='', cantStart='' ) %}
-  <li style="border-top: 1px solid lightgrey;" class="govuk-task-list__item govuk-task-list__item:first-child govuk-task-list__item--with-link">
+{% macro taskListItem(title="'title'", link='#', colour='', status='') %}
+  <li style="background:white;" class="govuk-task-list__item  govuk-task-list__item--with-link govuk-task-list__item:first-child">
     <div class="govuk-task-list__name-and-hint">
       <a class="govuk-link govuk-task-list__link nhsuk-link--no-visited-state" href="{{link}}" aria-describedby="company-details-2-status">
         {{title}}
       </a>
     </div>
     <div class="govuk-task-list__status" id="company-details-2-status">
-      <strong class="govuk-tag nhsuk-tag--white">
+      <strong class="govuk-tag nhsuk-tag--{{colour}}">
         {{status}}
       </strong>
     </div>
   </li>
-
-
-
-
 {% endmacro %}
 
-
+{% macro taskListContent(title="'title'") %}
+  <li style="background:white;border:0;padding-bottom:-8px;line-height:15px;margin-left:15px" class="govuk-task-list__item">
+    <div class="govuk-task-list__name-and-hint">
+      {{title}}
+    </div>
+  </li>
+{% endmacro %}
 
 
     {% set filtersListArray = [] %}
@@ -207,51 +211,70 @@
 
 
   {{ newIterationTasklist('Iteration ','1')}}
-  {{ newHeading('Selected cohorts')}}
 
   <ul class="govuk-task-list">
 
   {% if data['selectCohorts'] !== 'done' %}
-  {{ taskListItem(title="Select your campaign cohorts",link="select-cohorts",status="Not started") }}
+  {{ taskListItem(title="Select your campaign cohorts",link="select-cohorts",colour='blue',status="Not started") }}
   {% else %}
 
 
-
-    {% for items in cohortsArray %}
-    <ul class="nhsuk-list nhsuk-body">
-
-        <li>  {{ items | truncate(75) }}</li>
+  <!-- {{ newHeading('Selected cohorts')}} -->
+  {{ taskListItem(title="Edit selected cohorts",link="select-cohorts",colour='', status="Optional") }}
+  <p class="govuk-task-list__name-and-hint nhsuk-body" style="background:white">Information about the cohort, sizing etc from Foundry</p>
 
 
-    </ul>
+
+    {% for items in cohortsArray|default('COVID-19 vaccination for people aged 75 to 115 years old') %}
+
+    {{ taskListContent(title=items | truncate(75))|default('COVID-19 vaccination for people aged 75 to 115 years old') }}
     {% endfor %}
 
-    {{ taskListItem(title="Edit cohorts",link="select-cohorts",status="Optional") }}
+</ul>
+<ul class="govuk-task-list">
 
     {% if data['filters'] !== 'done'  %}
-    {{ taskListItem(title="Apply filters to your cohorts",link="add-filter-alt",status="Not started") }}
+    {{ taskListItem(title="Apply filters and suppressions to your cohorts",link="add-filter-alt",colour='blue',status="Not started") }}
     {% else %}
+    {{ taskListItem(title="Edit your filters and suppressions",link="add-filter-alt",status="Optional") }}
 
-    {% for items in cohortsArray %}
-    <ul class="nhsuk-list nhsuk-body">
-
-        <li>  {{ items | truncate(75) }}</li>
+    {% for items in filtersListArray %}
 
 
-    </ul>
+    {{ taskListContent(title=items | truncate(75)) }}
+
+
     {% endfor %}
 
-        {{ taskListItem(title="Edit filters",link="add-filter-alt",status="Optional") }}
+    {% if data['suppCollect'].length > 0 %}
+
+    {% for items in data['suppCollect'] %}
+
+
+    {{ taskListContent(title=items | truncate(75)) }}
+
+    {% endfor %}
     {% endif %}
-    {{ taskListItem(title="Apply suppressions to your cohorts",link="apply-suppressions",status="Not started") }}
+
+  </ul>
+
+
+
+
+    <ul class="govuk-task-list">
+
+    {{ taskListItem(title="Create a new iteration",link="#",status="Optional") }}
+
+
+    {% endif %}
 
   {% endif %}
 
   <!-- {{ taskListItem(title="Add filters",link="#",status="Cannot start") }} -->
 
+</ul>
 
 
-  </ul>
 
 
 
