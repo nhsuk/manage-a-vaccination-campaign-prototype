@@ -1,0 +1,412 @@
+{% set pagetitle ="Task list" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+{% block pageTitle %}
+{{ pagetitle }}
+{% endblock %}
+{% block outerContent %}
+{{ backLink({
+  "href": "javascript:window.history.back()",
+  "text": "Back",
+  "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+}) }}
+{% endblock %}
+{% block content %}
+
+<style>
+  .dwp-timeline__events {
+    padding: 0;
+    list-style-type: none;
+    border-left: 3px solid #1d70b8;
+  }
+  .dwp-timeline__events--entry {
+    position: relative;
+    top: -10px;
+    margin: 32px 0;
+    padding-left: 18px;
+  }
+  .dwp-timeline__events--entry::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: -1px;
+    width: 11px;
+    height: 3px;
+    background-color: #1d70b8;
+  }
+
+  .spacer {
+    padding-bottom:5px;
+    margin-top:-9px;
+    margin-bottom:5px;
+  }
+
+  .headspacer {
+    padding-bottom:8px;
+    margin-top:15px;
+    margin-bottom:-5px;
+    font-size:19px;
+  }
+
+  .govuk-tag  {
+    display: inline-block;
+    margin-top: -2px;
+    margin-bottom: -3px;
+    padding-top: 2px;
+    padding-right: 8px;
+    padding-bottom: 3px;
+    padding-left: 8px;
+    text-decoration: none;
+    overflow-wrap: break-word;
+    font-weight: bold;
+    font-size:17px;
+    font-weight:normal;
+  }
+
+  .govuk-tag--gris {
+    background:dimgrey;
+  }
+
+  .govuk-tag--grey {
+    background:#f0f4f5;
+  }
+
+  .govuk-task-list {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .govuk-task-list__item {
+    display: table;
+    position: relative;
+    width: 100%;
+    margin-bottom: 0;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid lightgrey;
+    font-size:17px;
+  }
+
+  .govuk-task-list__item:first-child {
+    border-top: 0.5px solid lightgrey;
+  }
+
+  .govuk-task-list__item--with-link:hover {
+    background-color:#d8dde0;
+    border-bottom: 1px solid lightgrey;
+  }
+
+  .govuk-task-list__name-and-hint {
+    display: table-cell;
+    vertical-align: top;
+
+  }
+
+  .govuk-task-list__status {
+    display: table-cell;
+    float:right;
+    text-align: right;
+    padding-right:5px;
+    vertical-align: top;
+  }
+
+  .govuk-task-list__link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .govuk-task-list__hint {
+    margin-top: 5px;
+  }
+
+  .nhsuk-body {
+    font-size:17px;
+    margin-top:3px;
+    margin-bottom:2px;
+
+  }
+</style>
+
+<div class="nhsuk-grid-row">
+  <div class="nhsuk-grid-column-three-quarters">
+
+    <span class="nhsuk-caption-m nhsuk-u-padding-bottom-1">{{ data['campaign-target']}} {{ data['campaign-type']|lower}}</span>
+    <h1 class="nhsuk-heading-xl">Head</h1>
+
+
+<div>
+
+  <div class="nhsuk-tabs nhsuk-!-margin-top-9" data-module="nhsuk-tabs">
+    <h2 class="nhsuk-tabs__title">
+      Contents
+    </h2>
+    <ul class="nhsuk-tabs__list">
+      <li class="nhsuk-tabs__list-item nhsuk-tabs__list-item--selected">
+        <a class="nhsuk-tabs__tab" href="#past-day">
+          Lead criteria
+        </a>
+      </li>
+      <li class="nhsuk-tabs__list-item">
+        <a class="nhsuk-tabs__tab" href="#past-week">
+          All sift criteria
+        </a>
+      </li>
+      <li class="nhsuk-tabs__list-item">
+        <a class="nhsuk-tabs__tab" href="#past-month">
+          Interview criteria
+        </a>
+      </li>
+      <li class="nhsuk-tabs__list-item">
+        <a class="nhsuk-tabs__tab" href="#past-year">
+          View the changes to pass marks
+        </a>
+      </li>
+    </ul>
+    <div class="nhsuk-tabs__panel" id="past-day" >
+
+      <div id="butter" style="float:right;display:none">
+
+        </div>
+
+        <style>
+
+          .parent {
+
+            overflow: hidden;
+          }
+          .segment-a {
+            float: left;
+          }
+          .segment-b {
+            float: right;
+          }
+
+        </style>
+
+
+
+
+        <div class="parent">
+      <div class="segment-a">
+        <h2 style="" class="nhsuk-heading-l">Lead criteria pass marks</h2>
+      </div>
+      <div class="segment-b">
+      <a id="chnge" class="nhsuk-link  nhsuk-link--no-underline nhsuk-link--no-visited-state" href="#" onclick="activateCell()" style="font-weight:bold;font-size:20px;float:right">Change</a>
+      </div>
+      </div>
+
+      <table class="nhsuk-table">
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th style="width:40% !important;" scope="col" class="nhsuk-table__header">Criteria</th>
+            <th scope="col" class="nhsuk-table__header">Minimum pass mark</th>
+            <th scope="col" class="nhsuk-table__header">Minimum pass mark-Priority schemes</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Lead criteria Seeing the Big Picture</td>
+            <td class="nhsuk-table__cell">
+              <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="width-2">
+
+                </label>
+                <input style="border:0px;margin-top:-30px" class="nhsuk-input nhsuk-input--width-2" id="width-2" name="width2" type="text" value="{{data['width2']|default("5")}}">
+              </div>
+
+
+
+            </td>
+            <td class="nhsuk-table__cell">
+              <div class="nhsuk-form-group">
+                <label class="nhsuk-label" for="width-3">
+
+                </label>
+                <input style="border:0px;margin-top:-30px" class="nhsuk-input nhsuk-input--width-3" id="width-3" name="width3" type="text" value="{{data['width3']|default("4")}}">
+              </div>
+
+
+            </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+    <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="past-week">
+
+      <div class="parent">
+      <div class="segment-a">
+      <h2 style="" class="nhsuk-heading-l">All sift criteria pass marks</h2>
+      </div>
+      <div class="segment-b">
+      <a id="chnge" class="nhsuk-link  nhsuk-link--no-underline nhsuk-link--no-visited-state" href="#"  style="font-weight:bold;font-size:20px;float:right">Change</a>
+      </div>
+      </div>
+
+      <table class="nhsuk-table">
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th style="width:40% !important;" scope="col" class="nhsuk-table__header">Criteria</th>
+            <th scope="col" class="nhsuk-table__header">Minimum pass mark</th>
+            <th scope="col" class="nhsuk-table__header">Minimum pass mark-Priority schemes</th>
+          </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Experience of operating in a fast-paced environment to provide policy advice and briefing to seniors and stakeholders</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Knowledge of how to deliver oral and written information effectively</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Evidence of understanding the current national policy challenges for the population impacted by this area</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+
+    </div>
+    <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="past-month">
+
+  <div class="parent">
+  <div class="segment-a">
+  <h2 style="" class="nhsuk-heading-l">Interview criteria pass marks</h2>
+  </div>
+  <div class="segment-b">
+  <a id="chnge" class="nhsuk-link  nhsuk-link--no-underline nhsuk-link--no-visited-state" href="#"  style="font-weight:bold;font-size:20px;float:right">Change</a>
+  </div>
+  </div>
+
+      <table class="nhsuk-table">
+        <thead class="nhsuk-table__head">
+          <tr class="nhsuk-table__row">
+            <th scope="col" style="width:40% !important;" class="nhsuk-table__header">Criteria</th>
+            <th scope="col" class="nhsuk-table__header">Minimum pass mark</th>
+            <th scope="col" class="nhsuk-table__header">Minimum pass mark-Priority schemes</th>
+                  </tr>
+        </thead>
+        <tbody class="nhsuk-table__body">
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Building engaging and effective relationships with stakeholders</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Seeing the Big Picture</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Changing and Improving</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Analytical (Strengths)</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Challenger (Strengths)</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+
+          <tr class="nhsuk-table__row">
+            <td class="nhsuk-table__cell">Problem Solver (Strengths)</td>
+            <td class="nhsuk-table__cell">5</td>
+            <td class="nhsuk-table__cell">4 </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+    <div class="nhsuk-tabs__panel nhsuk-tabs__panel--hidden" id="past-year">
+      <h2 class="nhsuk-heading-l">Changes to pass marks</h2>
+
+      <div class="moj-timeline">
+        <div class="moj-timeline__item">
+
+          <div class="moj-timeline__header">
+            <h2 class="moj-timeline__title">Increase Sift Stage 1: Lead Criteria</h2>
+
+            <p class="moj-timeline__byline">by Panel Chair</p>
+
+          </div>
+
+          <p class="moj-timeline__date">
+            <time datetime="2019-06-14T14:01:00.000Z">14 June 2019 at 2:01pm</time>
+          </p>
+
+          <div class="moj-timeline__description">
+            <p>Change log content lorem ipsum dolor sit amet.</p>
+          </div>
+
+        </div>
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+<script>
+
+  function activateCell(){
+
+  const first = document.getElementById("width-2");
+  const second = document.getElementById("width-3");
+  const butter = document.getElementById("butter");
+
+  const chgn = document.getElementById("chnge");
+
+  first.style = "border:1px solid black"
+  first.focus();
+
+  second.style = "border:1px solid black"
+  butter.style.display ="block";
+  chgn.style.display ="none ";
+
+  }
+
+
+  function showDiv(div1) {
+    document.getElementById(div1).style.display = 'block';
+  }
+
+  function hideDiv(div1) {
+    document.getElementById(div1).style.display = 'none';
+  }
+</script>
+
+{% endblock %}

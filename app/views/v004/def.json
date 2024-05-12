@@ -1,0 +1,261 @@
+{
+    "CampaignConfig": {
+        "ID": "674a4dd2-d9c0-4558-8e6f-205a5ad16a96",
+        "Version": 1,
+        "Name": "Vaccine AW23 Covid and Co-Admin",
+        "Type": "V",
+        "Target": "COVID",
+        "Manager": "shail.ravjibhai@nhs.net",
+        "Approver": "shail.ravjibhai@nhs.net",
+        "Reviewer": "shail.ravjibhai@nhs.net",
+        "IterationFrequency": "X",
+        "IterationType": "M",
+        "IterationTime": "07:00:00",
+        "DefaultCommsRouting": "VACCS0013_COVID_16TO64_IS_R2_V1",
+        "Iterations": [
+            {
+                "ID": "319c5885-81ec-42f9-8385-093228766592",
+                "DefaultCommsRouting": "VACCS0013_COVID_16TO64_IS_R2_V1",
+                "IterationCohorts": [
+                    {
+                        "CohortLabel": "covid_under16_immunosuppression",
+                        "Priority": 10
+                    },
+                    {
+                        "CohortLabel": "covid_16+_immunosuppression",
+                        "Priority": 15
+                    }
+                ],
+                "IterationRules": [
+                	{
+                        "Type": "F",
+                        "Name": "Filter - Exclude all individuals born before 21/08/1909",
+                        "Description": "Exclude all individuals born before 21/08/1909 Over 114 ",
+                        "Priority": 10,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": "<",
+                        "Comparator": "19090821"
+                    },
+                    {
+                        "Type": "F",
+                        "Name": "Filter - Exclude all individuals 12 year olds (born after 12/10/2011)",
+                        "Description": "Exclude all individuals born after 12/10/2011 Under12 (on some arbitrary date)",
+                        "Priority": 20,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": ">",
+                        "Comparator": "20111012"
+                    },
+                    {
+                        "Type": "F",
+                        "Name": "Filter - Exclude all individuals who have had a Covid Vaccination less than 91 days ago",
+                        "Description": "Exclude individuals who have completed Covid Vaccination less than 91 days ago",
+                        "Priority": 30,
+                        "AttributeLevel": "TARGET",
+                        "AttributeName": "LAST_SUCCESSFUL_DATE",
+                        "Operator": ">=",
+                        "Comparator": "20230802",
+                        "AttributeTarget": "COVID"
+                    },
+                    {
+                        "Type": "S",
+                        "Name": "Suppress Care Home Residents",
+                        "Description": "Suppress Care Home Residents where individual is identified as being a Care Home Resident",
+                        "Priority": 40,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "CARE_HOME_FLAG",
+                        "Operator": "=",
+                        "Comparator": "Y"
+                    },
+                    {
+                        "Type": "S",
+                        "Name": "Suppress Individuals In Detained Estates",
+                        "Description": "Suppress all Individuals where individual is identified as being in a Detained Estate",
+                        "Priority": 50,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DE_FLAG",
+                        "Operator": "=",
+                        "Comparator": "Y"
+                    },
+                    {
+                        "Type": "S",
+                        "Name": "Suppress all individuals where the individual is identified as being a member of DPHC/DMS staff",
+                        "Description": "Suppress all individuals where the individual is identified as being a member of DPHC/DMS staff",
+                        "Priority": 60,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "13Q_FLAG",
+                        "Operator": "=",
+                        "Comparator": "Y"
+                    },
+                    {
+                        "Type": "S",
+                        "Name": "Suppress Covid comms opted out",
+                        "Description": "Suppress individuals who have opted out of national Covid communications",
+                        "Priority": 70,
+                        "AttributeLevel": "TARGET",
+                        "AttributeTarget": "COVID",
+                        "AttributeName": "OPTOUT",
+                        "Operator": "=",
+                        "Comparator": "Y"
+                    },
+                    {
+                        "Type": "S",
+                        "Name": "NoCOVID Booking - Suppress those with a future booking",
+                        "Description": "Suppress those with a future booking - COVID",
+                        "Priority": 90,
+                        "AttributeLevel": "TARGET",
+                        "AttributeTarget": "COVID",
+                        "AttributeName": "BOOKED_APPOINTMENT_DATE",
+                        "Operator": ">=",
+                        "Comparator": "20231101"
+                    },
+                    {
+                        "Type": "S",
+                        "Name": "NoCo-admin Booking - Suppress those with a future booking",
+                        "Description": "Suppress those with a future booking - Co-admin",
+                        "Priority": 100,
+                        "AttributeLevel": "TARGET",
+                        "AttributeTarget": "COVID_FLU",
+                        "AttributeName": "BOOKED_APPOINTMENT_DATE",
+                        "Operator": ">=",
+                        "Comparator": "20231101"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing for Communications addressed to parent/guardian/carer for under 16s",
+                        "Description": "If under 16 then use parent/guardian/carer Sending Group ID",
+                        "Priority": 2000,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": ">",
+                        "Comparator": "20071101",
+                        "CommsRouting": "VACCS0001_COVID_CHILD_INV_R1_R2_V1|VACCS0016_COVID_CHILD_EMAIL_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing plan for those with an email address",
+                        "Description": "Send people with and e-mail address an email ",
+                        "Priority": 2000,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "EMAIL_FLAG",
+                        "Operator": "=",
+                        "Comparator": "Y",
+                        "CommsRouting":"VACCS0001_COVID_CHILD_INV_R1_R2_V1|VACCS0016_COVID_CHILD_EMAIL_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing for Communications addressed to parent/guardian/carer for under 16s",
+                        "Description": "If under 16 then use parent/guardian/carer Sending Group ID",
+                        "Priority": 2010,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": ">",
+                        "Comparator": "20071101",
+                        "CommsRouting": "VACCS0001_COVID_CHILD_INV_R1_R2_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing plan for those without an email address",
+                        "Description": "Send people with and no e-mail address ",
+                        "Priority": 2010,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "EMAIL_FLAG",
+                        "Operator": "=",
+                        "Comparator": "N",
+                        "CommsRouting":"VACCS0001_COVID_CHILD_INV_R1_R2_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing for Communications for all individuals aged 65 and over",
+                        "Description": "If aged 65 or over then use standard aged based Sending Group ID",
+                        "Priority": 2020,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": "<=",
+                        "Comparator": "19590331",
+                        "CommsRouting": "VACCS0012_COVID_75PLUS_65PLUSIS_R2_V2|VACCS0018_COVID_65PLUS_EMAIL_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing plan for those with an email address",
+                        "Description": "Send people with and e-mail address an email ",
+                        "Priority": 2020,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "EMAIL_FLAG",
+                        "Operator": "=",
+                        "Comparator": "Y",
+                        "CommsRouting":"VACCS0012_COVID_75PLUS_65PLUSIS_R2_V2|VACCS0018_COVID_65PLUS_EMAIL_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing for Communications for all individuals aged 65 and over",
+                        "Description": "If aged 65 or over then use standard aged based Sending Group ID",
+                        "Priority": 2030,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": "<=",
+                        "Comparator": "19590331",
+                        "CommsRouting": "VACCS0012_COVID_75PLUS_65PLUSIS_R2_V2"
+                    },{
+                        "Type": "R",
+                        "Name": "Routing plan for those without an email address",
+                        "Description": "Send people with and NO e-mail address letter ",
+                        "Priority": 2030,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "EMAIL_FLAG",
+                        "Operator": "=",
+                        "Comparator": "N",
+                        "CommsRouting":"VACCS0012_COVID_75PLUS_65PLUSIS_R2_V2"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing for Communications addressed to parent/guardian/carer for over 16s",
+                        "Description": "If Over 16 ",
+                        "Priority": 2040,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": "<=",
+                        "Comparator": "20071101",
+                        "CommsRouting": "VACCS0013_COVID_16TO64_IS_R2_V1|VACCS0017_COVID_16TO64_EMAIL_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing for Communications for all individuals under 65",
+                        "Description": "If aged less than 65 ",
+                        "Priority": 2040,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "DATE_OF_BIRTH",
+                        "Operator": ">",
+                        "Comparator": "19590331",
+                        "CommsRouting": "VACCS0013_COVID_16TO64_IS_R2_V1|VACCS0017_COVID_16TO64_EMAIL_V1"
+                    },
+                    {
+                        "Type": "R",
+                        "Name": "Routing plan for those with an email address",
+                        "Description": "Send people with an e-mail address an email ",
+                        "Priority": 2040,
+                        "AttributeLevel": "PERSON",
+                        "AttributeName": "EMAIL_FLAG",
+                        "Operator": "=",
+                        "Comparator": "Y",
+                        "CommsRouting": "VACCS0013_COVID_16TO64_IS_R2_V1|VACCS0017_COVID_16TO64_EMAIL_V1"
+                    }
+
+                ],
+                "Version": 1,
+                "Name": "G1.2 Second Reminder for ALL 12 plus Immunosuppressed (AW23C11011 Ruleset v1)",
+                "Type": "M",
+                "IterationDate": "20231101",
+                "IterationNumber": 1,
+                "CommsType": "R",
+                "ApprovalMinimum": 1,
+                "ApprovalMaximum": 5000000
+            }
+        ],
+        "StartDate": "20230918",
+        "EndDate": "20231231",
+        "ApprovalMinimum": 1,
+        "ApprovalMaximum": 5000000
+    }
+}

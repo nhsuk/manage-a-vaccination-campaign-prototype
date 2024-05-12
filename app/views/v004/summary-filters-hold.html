@@ -65,100 +65,107 @@
       Summary of your answers
     </h1>
 
+{{ cohortsArray }}
+{{ data['includeExcludeRadios']}}
+{{ data['personAttributeSelector']}}
+{{ data['genericOperatorsList']}}
+{{ data['locationSelectListOptions']}}
+{{ data['locationRegion']}}
+{{ data['locationICB']}}
+{{ data['value-1-suffix']}}
+{{ data['value-2-suffix']}}
+{{ data['output-2-suffix']}}
 
-    {% if data['personAttributeSelector'] == "age" %}
-    <ul class="nhsuk-list nhsuk-list--bullet">
-    <li>{{ cohortsArray}}</li>
-    <li>{{ data['includeExcludeRadios'] }}</li>
-    <li>{{ data['genericOperatorsList'] | title}}</li>
-    <li>{{ data['personAttributeSelector'] | title}}</li>
-    <li>{{ data['value-1-suffix']}} years</li>
-    <li>{{ data['value-2-suffix']}} years</li>
-    </ul>
-    {% elif data['suppCollect'].length > 0 %}
-    <ul class="nhsuk-list nhsuk-list">
-    <li >{{ cohortsArray}}|slice(1)</li>
-    </ul>
-    {% if filtersListArray.length > 0 %}
-    {% for filters in filtersListArray %}
+<ul class="nhsuk-list nhsuk-list--bullet">
+  <li>{{ cohortsArray }}</li>
+  <li>{{ data['includeExcludeRadios']}}</li>
+  <li>{{ data['genericOperatorsList']}}</li>
+  <li>{{ data['personAttributeSelector']}}</li>
+  <li>{{ data['value-1-suffix']}}</li>
+  <li>{{ data['value-2-suffix']}}</li>
+
+
+    <li>{{ cohortsArray }}</li
+    <li>{{ data['includeExcludeRadios']}}</li
+    <li>{{ data['personAttributeSelector']}}</li
+    <li>{{ data['genericOperatorsList']}}</li
+    <li>{{ data['locationSelectListOptions']}}</li
+    <li>{{ data['locationRegion']}}</li
+    <li>{{ data['locationICB']}}</li
+    <li>{{ data['value-1-suffix']}}</li
+    <li>{{ data['value-2-suffix']}}</li
+    <li>{{ data['output-2-suffix']}}</li>
+
+
+</ul>
+
+
+{% set filtersListArray = filtersListArray.concat(['includeExcludeRadios'].value) %}
+{% set filtersListArray = filtersListArray.concat(['selectedAttrib'].value) %}
+{% set filtersListArray = filtersListArray.concat(data['locationSelectListOptions']) %}
+{% set filtersListArray = filtersListArray.concat(data['locationRegion']) %}
+{% set filtersListArray = filtersListArray.concat(data['locationICB']) %}
+
+
+    {% if cohortsArray.length > 0 %}
     <dl class="nhsuk-summary-list">
-      <div class="nhsuk-summary-list__row">
-        <dt class="nhsuk-summary-list__key">
-          Filter
-        </dt>
-        <dd class="nhsuk-summary-list__value">{{filters}}
-        </dd>
-        <dd class="nhsuk-summary-list__actions">
-          <ul class="nhsuk-summary-list__actions-list">
 
-
-
-
-            <li class="nhsuk-summary-list__actions-list-item">
-            <a href="#">On<span class="nhsuk-u-visually-hidden"> filter on {{filters}}</span></a>
-          </li>
-
-          <li class="nhsuk-summary-list__actions-list-item">
-            <a href="add-filter-library?repickFilters=true">Edit<span class="nhsuk-u-visually-hidden"> edit {{filters}}</span></a>
-          </li>
-          <li class="nhsuk-summary-list__actions-list-item">
-            <a href="summary-filters-delete?condemned={{filters}}">Delete<span class="nhsuk-u-visually-hidden"> delete {{filters}}</span></a>
-          </li>
-        </ul>
-      </dd>
-    </div>
+    <p class="nhsuk-body-m">These filters will be applied to your cohorts:</p>
+    {% for selected in cohortsArray %}
+    <ul class="nhsuk-list nhsuk-list--bullet">
+      <li>{{selected}}</li>
+    </ul>
     {% endfor %}
     {% endif %}
-    {% if data['suppCollect'].length > 0 %}
-    {% for thing in data['suppCollect'] %}
-    <div class="nhsuk-summary-list__row">
-      <dt class="nhsuk-summary-list__key">
-        Suppression
-      </dt>
-      <dd class="nhsuk-summary-list__value">{{ thing }}
-      </dd>
-      <dd class="nhsuk-summary-list__actions">
-        <ul class="nhsuk-summary-list__actions-list">
-          <!-- <li class="nhsuk-summary-list__actions-list-item">
-          <a href="#">On<span class="nhsuk-u-visually-hidden"> filter on {{filters}}</span></a>
-        </li> -->
-
-        <li class="nhsuk-summary-list__actions-list-item">
-          <a href="add-filter-library?repickFilters=true">Edit<span class="nhsuk-u-visually-hidden"> edit {{filters}}</span></a>
-        </li>
-        <li class="nhsuk-summary-list__actions-list-item">
-          <a href="summary-filters-delete?condemned={{filters}}">Delete<span class="nhsuk-u-visually-hidden"> delete {{filters}}</span></a>
-        </li>
-      </ul>
-    </dd>
-    </div>
-    {% endfor %}    {% endif %}
-    </dl>
 
 
-    {% else %}
+    {% for key, item in data %}
+
     <ul class="nhsuk-list nhsuk-list--bullet">
-    <li>{{ cohortsArray}}</li>
-    <li>{{ data['includeExcludeRadios'] }}</li>
-    <li>{{ data['locationSelectListOptions'] | title}}</li>
-    <li>{{ data['locationRegion'] | title}}</li>
-    <li>{{ data['locationICB'] | title}}</li>
+
+      {{ key }} {{ item }}
     </ul>
-    {% endif %}
+      {% endfor %}
+
+
+<!--
+      {% for key, item in data %}
+      {% if item != "" %}
+      <div class="nhsuk-summary-list__row">
+        <dt class="nhsuk-summary-list__key">
+          {{ key }}
+        </dt>
+        <dd class="nhsuk-summary-list__value">
+
+
+          <ul class="nhsuk-list">
+            <li>{{item}}</li>
+          </ul>
+          {% endif %}
+        </dd>
+      </div>
+
+    </dl>
+    {% endfor %} -->
 
 
 
+
+
+    <ul class="nhsuk-list">
+      <li><a class="nhsuk-link nhsuk-link--no-visited-state" href="/add-another">Add a new filter</a></li>
+    </ul>
   </div>
 
 
 </div>
 {{ button({
-  href: "/v004/task-list-govuk?filters=done",
+  href: "v004/task-list-govuk?filters=done",
   text: "Save and continue"
 }) }}
 {{ button({
   classes:"nhsuk-button--secondary",
-  href: "/v004/add-filter-alt",
+  href: "v004/add-filter-alt",
   text: "Save and add another"
 }) }}
 </div>

@@ -117,10 +117,9 @@
 
 {% set HoS = 'none' %}
 
-
 <div class="nhsuk-grid-row">
-  <div class="nhsuk-grid-column-two-thirds">
-    <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Add a Filter by {{ att|lower|replace('-',' ')}}</h1></caption>
+  <div class="nhsuk-grid-column-full">
+    <caption class="nhsuk-table__caption"><h1 class="nhsuk-heading-xl">Add a Filter by {{ data['sel']|lower|replace('-',' ')}}</h1></caption>
 
     <table class="nhsuk-table">
       <thead role="rowgroup" class="nhsuk-table__head">
@@ -146,14 +145,11 @@
     </table>
   </div>
 
-  <input type="hidden" id="defaultSelect" value="{{ att |default('location') }}">
-
-  <form action="/summary-filters?suf1=outputSuff1&suf2=outputSuff2" method="post">
+  <input type="hidden" id="defaultSelect" value="{{ data['sel']|default('location') }}">
+  <form action="summary-filters" method="post">
     <ul class="nhsuk-list filterLine">
 
       <!-- const personAttributeSelector = document.getElementById("personAttributeSelector"); -->
-
-      <input type="hidden" id="preselected" value="{{ att }}">
 
 
       <li style="padding-left:10px">
@@ -163,13 +159,9 @@
           </label>
           <select  class="nhsuk-select" id="personAttributeSelector" name="personAttributeSelector">
             <option disabled selected value="--">Select</option>
-
             <option id="attr1" value="age">Age</option>
             <option id="attr2" value="given-vaccine">Given vaccine</option>
             <option id="attr3" value="location">Location</option>
-
-
-
           </select>
         </div>
       </li>
@@ -211,7 +203,7 @@
             <option value="greater-than-equal-to">Greater than/equal to</option>
             <option value="less than">Less than</option>
             <option value="less-than-equal-to">Less than/equal to</option>
-          </select>
+                    </select>
         </div>
       </li>
 
@@ -242,7 +234,7 @@
             <option disabled selected value="Select">Select Integrated Care Board from the list</option>
 
             {% for icb in ICBlist %}
-            <option id="{{icbitem}}" value="{{icb}}">{{icb}}</option>
+            <option id="{{icb}}" value="{{icb}}">{{icb}}</option>
             {% endfor %}
           </select>
         </div>
@@ -270,7 +262,7 @@
           <label class="nhsuk-label" for="value-1">
             Value 1
           </label>
-          <input class="nhsuk-input nhsuk-input--width-3" id="value-1" name="value-1" type="text">
+            <input class="nhsuk-input nhsuk-input--width-3" id="value-1" name="value-1" type="text">
         </div>
       </li>
       <li>
@@ -278,7 +270,7 @@
           <label class="nhsuk-label" for="value-2">
             Value 2
           </label>
-          <input class="nhsuk-input nhsuk-input--width-3" id="value-2" name="value-2" type="text">
+            <input class="nhsuk-input nhsuk-input--width-3" id="value-2" name="value-2" type="text">
         </div>
       </li>
 
@@ -337,8 +329,6 @@
   </form>
 </div>
 <script>
-
-  const preselected = document.getElementById("preselected");
   const personAttributeSelector = document.getElementById("personAttributeSelector");
   const locationSelectList = document.getElementById("locationSelectList");
   const locationSelectListOptions = document.getElementById("locationSelectListOptions");
@@ -360,62 +350,17 @@
   const defSel = document.getElementById("defaultSelect").value;
   const newDefault = document.getElementById("attr2");
   const betweenxy = document.getElementById("betweenxy");
-  const attr1 = document.getElementById("attr1");
-  const attr2 = document.getElementById("attr2");
-  const attr3 = document.getElementById("attr3");
-
-  switch (defSel) {
-    case "age":
-    console.log(defSel,attr1)
-    // attr1 = attr1.selected;
-    // attr2.innerHTML = newDefault.value;
-    // attr1.selected = "true";
-    document.getElementById('preselected').style.display = 'block';
-    document.getElementById('attr1').selected = 'true';
-    // document.getElementById('suffix1').innerHTML = '{{attr1}}';
-    document.getElementById('includeExcludeRadios').style.display = 'block';
-
-    showElement('genericOperators');
-    document.getElementById('value-1-suffix').style.display = 'block';
-    document.getElementById('suffix1').innerHTML = 'years';
-
-    // showElement('value-2')
-    hideElement('locationSelectList')
-    hideElement('locationICB')
-    hideElement('locationRegion')
-    break;
-    break;
-    case "given-vaccine":
-    // console.log(attr1.value)
-    // attr2.innerHTML = newDefault.value;
-    document.getElementById('attr2').selected = 'true';
-
-    // personAttributeSelector.appendChild(defSel.value).selected = "true";
-    break;
-    case "location":
-    // console.log(attr1.value)
-    // attr2.innerHTML = newDefault.value;
-    document.getElementById('attr3').selected = 'true';
-    showElement('locationSelectList')
-    // personAttributeSelector.appendChild(defSel.value).selected = "true";
-    break;
-  }
-
 
 
   personAttributeSelector.addEventListener("click", function(event) {
     personAttributeSelector.addEventListener("change", function(event) {
-      switch (personAttributeSelector.value && preselected) {
+      switch (personAttributeSelector.value) {
         case "age":
-        document.getElementById('preselected').style.display = 'block';
-        document.getElementById('suffix1').innerHTML = '{{att}}';
         document.getElementById('includeExcludeRadios').style.display = 'block';
 
         showElement('genericOperators');
         document.getElementById('value-1-suffix').style.display = 'block';
         document.getElementById('suffix1').innerHTML = 'years';
-        const outputSuff1 = document.getElementById('suffix1').innerHTML;
-        const outputSuff2 = document.getElementById('suffix2').innerHTML;
 
         // showElement('value-2')
         hideElement('locationSelectList')
@@ -534,14 +479,14 @@
 
 
   function showElement(div1) {
-    document.getElementById(div1).style.display = 'block';
+      document.getElementById(div1).style.display = 'block';
 
   }
 
 
   function showElementXtra(div1, sfx) {
-    document.getElementById(div1).style.display = 'block';
-    suffix1.innerHTML = sfx;
+      document.getElementById(div1).style.display = 'block';
+      suffix1.innerHTML = sfx;
   }
 
   function hideElement(div1) {
