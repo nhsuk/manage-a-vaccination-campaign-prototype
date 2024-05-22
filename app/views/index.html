@@ -31,10 +31,15 @@
 {% endblock %}
 {% block content %}
 
-{% set latestVersion = 'v004' %}
-{% set v004HTML %}
+{% set latestVersion = 'v005' %}
+{% set v005HTML %}
 
 <h2 class="nhsuk-heading-l">Pages</h2>
+
+{% set latestDir = '/'+latestVersion %}
+
+{% set newWD = workingD.split('/') %}
+
 
 
 {% for items in filesArray %}
@@ -42,6 +47,7 @@
 <li>{{ items }}</li>
 </ul>
 {% endfor %}
+
 
 
 <!-- {% include 'listing.html' %} -->
@@ -69,7 +75,7 @@
       {% from 'button/macro.njk' import button %}
 
       {{ button({
-          "href": "v004/index",
+          "href": "v005/index",
           "text": "Launch prototype"
       }) }}
 {% set storedHTML %}
@@ -128,7 +134,7 @@
 {{ details({
   "classes": "nhsuk-expander",
   "text": latestVersion,
-  "HTML": v004HTML
+  "HTML": v005HTML
 }) }}
 
 

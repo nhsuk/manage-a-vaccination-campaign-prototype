@@ -1,0 +1,164 @@
+{% set pagetitle ="Select Cohorts" %}
+{% set versionNumber ="004" %}
+{% extends 'layout.html' %}
+{% block header %}
+{% include 'foundations/header-signed-in-campaign.html' %}
+{% endblock %}
+
+{% set mainClasses = "nhsuk-main-wrapper--s" %}
+
+{% block pageTitle %}
+  {{ pagetitle }}
+{% endblock %}
+
+
+{% block outerContent %}
+  {{ backLink({
+    "href": "javascript:window.history.back()",
+    "text": "Back",
+    "classes": "nhsuk-u-margin-top-4 nhsuk-u-margin-bottom-0"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+
+
+
+  <div class="nhsuk-grid-row">
+    <div class="nhsuk-grid-column-three-quarters">
+          <span style="" class="nhsuk-caption-m">{{data['campaign-target']}} {{data['campaign-type']|lower|replace(" campaign"," ")}}</span>
+          <h1 class="nhsuk-heading-xl">Choose cohorts</h1>
+
+<!-- {{ data['repickCohorts']}} -->
+
+
+<!-- <form action="summary-cohorts?cohortTarget={{typePermissions[0]}}{{typePermissions[1]}}&repickCohorts=false" method="post"> -->
+<form action="summary-cohorts?sizes={{sizing}}" method="post">
+
+
+<h2 class="nhsuk-heading-l">Recently added cohorts [3]</h2>
+
+{% set recent = [['16+ Serious Genetic Abnormalities','(est 19,264)','17 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Age 85+','(est 427,932)','17 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Age 5-74 immunosuppressed','(est 1,149,754)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.']] %}
+
+{% set listing = [['Under 16 Chronic neurological Disease','(est 5,782)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Age 75+','(est 2,820,102)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Age 75-84','(est 3,442,325)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Immunosuppressed (5-74s)','(est 1,149,754)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Under 16 Chronic neurological Disease','(est 5,782)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Age 75+ (London)','(est 720,102)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.'],['Under 5s','(est 125,782)','14 May 2024','lorem ipsum dolor sit amet, blah blah, lorem ipsum.']] %}
+
+
+{% set sizing = [] %}
+
+{% for a, b,c,d in recent %}
+
+{% set sizing = b.recent %}
+
+{{ checkboxes({
+    "idPrefix": "selectedCohorts-1",
+    "name": "selectedCohorts-1",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+      {
+        "value": a+" "+b,
+        "text": a+" "+b,
+        "hint": {
+            "value": b,
+            "text": "Desc "+d|truncate(65,1,1)+d|truncate(37,1,"")+" ("+c+")"
+        },
+        checked: checked('selectedCohorts-1',a)
+      }
+    ]
+ }) }}
+ {% endfor %}
+
+{{ sizing }}
+
+
+ {% set covidHTML %}
+
+
+ {% for e,f,g,h in listing %}
+
+ {{ checkboxes({
+     "idPrefix": "selectedCohorts-2",
+     "name": "selectedCohorts-2",
+     "fieldset": {
+       "legend": {
+         "text": "",
+         "classes": "nhsuk-fieldset__legend--l",
+         isPageHeading: false
+       }
+     },
+     "items": [
+       {
+         "value": e+" "+f,
+         "text": e+" "+f,
+         "hint": {
+             "value": f,
+           "text": "Desc "+h|truncate(65,1,1)+d|truncate(37,1,"")+" ("+g+")"
+         },
+         checked: checked('selectedCohorts-2',e)
+       }
+     ]
+   }) }}
+   {% endfor %}
+
+ {% endset %}
+
+
+
+{% set genHTML %}
+
+{% for a, b,c,d in listing %}
+
+{{ checkboxes({
+    "idPrefix": "cohorts",
+    "name": "cohorts",
+    "fieldset": {
+      "legend": {
+        "text": "",
+        "classes": "nhsuk-fieldset__legend--l",
+        isPageHeading: false
+      }
+    },
+    "items": [
+      {
+        "value": a+" ",
+        "text": a+" ( est. "+b+" )",
+        "hint": {
+          "text": "Desc "+d|truncate(65,1,1)+d|truncate(37,1,"")+" ("+c+")"
+        },
+        checked: checked('cohorts',a)
+      }
+    ]
+ }) }}
+ {% endfor %}
+
+{% endset %}
+
+{{ details({
+  "classes": "nhsuk-expander",
+  "open": 'true',
+  "text": "All "+data['campaign-target']+" "+data['campaign-type']|lower|replace(" campaign"," ")+" cohorts",
+  "HTML": covidHTML
+}) }}
+
+  {{ button({
+    text: "Save and continue"
+  }) }}
+
+
+<div style="margin-top:-30px">
+<HR>
+  <p class="nhsuk-body-m nhsuk-u-padding-top-0 nhsuk-u-margin-bottom-3" style="margin-top:-30px">The cohort I need isn't here, what should I do?<BR><a href="" class="nhsuk-link nhsuk-link--no-visited-state">Request a new cohort</a></p>
+</div>
+
+</form>
+
+    </div>
+  </div>
+
+{% endblock %}
